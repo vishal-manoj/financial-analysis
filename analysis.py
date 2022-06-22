@@ -1,5 +1,7 @@
 import tkinter.ttk
 from tkinter import *
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
 
 class ComparativeStatement:
@@ -138,3 +140,72 @@ class ComparativeStatement:
         for j in range(13):
             comp_bs_tree.insert(parent='', index=END, values=self.comp_bs_statement[j])
         comp_bs_tree.place(x=0, y=20)
+
+
+class CommonSizeStatement:
+    def __init__(self, pl, bs, pl_frame, bs_frame):
+        self.com_pl = pl
+        self.com_bs = bs
+        self.common_p_l_frame = pl_frame
+        self.common_bs_frame = bs_frame
+
+    def create_statement(self):
+        com_pl_treeview = tkinter.ttk.Treeview(self.common_p_l_frame, columns=('1', '2', '3'))
+        com_pl_treeview.configure(height=95)
+        com_pl_treeview.column('#0', width=0)
+        com_pl_treeview.column('1', anchor=W, width=400)
+        com_pl_treeview.column('2', anchor=W, width=175)
+        com_pl_treeview.column('3', anchor=W, width=175)
+        com_pl_treeview.heading('1', text='Particulars')
+        com_pl_treeview.heading('2', text='Amount')
+        com_pl_treeview.heading('3', text='Percentage')
+        for j in range(15):
+            com_pl_treeview.insert(parent='', index=END, values=self.com_pl[j])
+        com_pl_treeview.place(x=0, y=20)
+
+        com_bs_treeview = tkinter.ttk.Treeview(self.common_bs_frame, columns=('1', '2', '3'))
+        com_bs_treeview.configure(height=95)
+        com_bs_treeview.column('#0', width=0)
+        com_bs_treeview.column('1', anchor=W, width=400)
+        com_bs_treeview.column('2', anchor=W, width=175)
+        com_bs_treeview.column('3', anchor=W, width=175)
+        com_bs_treeview.heading('1', text='Particulars')
+        com_bs_treeview.heading('2', text='Amount')
+        com_bs_treeview.heading('3', text='Percentage')
+        for j in range(13):
+            com_bs_treeview.insert(parent='', index=END, values=self.com_bs[j])
+        com_bs_treeview.place(x=0, y=20)
+
+
+class TrendAnalysis:
+    def __init__(self, trend, year, table_frame, graph_frame, title):
+        self.y = trend
+        self.x = year
+        self.trend_table_frame = table_frame
+        self.trend_graph_frame = graph_frame
+        self.title = title
+
+    def create_table(self):
+        trend_treeview = tkinter.ttk.Treeview(self.trend_table_frame, columns=('1', '2'))
+        trend_treeview.configure(height=45)
+        trend_treeview.column('#0', width=0)
+        trend_treeview.column('1', anchor=W, width=588)
+        trend_treeview.column('2', anchor=W, width=588)
+        trend_treeview.heading('1', text='Year')
+        trend_treeview.heading('2', text='Amount')
+        for j in range(6):
+            trend_treeview.insert(parent='', index=END, values=(self.x[j], self.y[j]))
+        trend_treeview.place(x=0, y=0)
+
+    def create_graph(self):
+        fig = plt.Figure(figsize=(24, 7), dpi=50)
+        ax = fig.add_subplot(111)
+        ax.set_title(self.title)
+        ax.bar(self.x, self.y, 0.25)
+        chart = FigureCanvasTkAgg(fig, self.trend_graph_frame)
+        chart.get_tk_widget().place(x=0, y=0)
+        tool_bar = NavigationToolbar2Tk(chart, self.trend_graph_frame)
+        tool_bar.place(x=0, y=0)
+
+
+

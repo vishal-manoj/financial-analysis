@@ -1,7 +1,5 @@
 import tkinter.ttk
 from financial_statements import *
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 from analysis import *
 
 # A GUI based financial analysis software
@@ -496,171 +494,39 @@ class FinancialAnalysis:
         if self.common_var.get() == 1:
             self.com_pl = self.company_data1[0].com_size_pl()
             self.com_bs = self.company_data1[1].com_size_bs()
-            com_pl_treeview = tkinter.ttk.Treeview(self.common_p_l_frame, columns=('1', '2', '3'))
-            com_pl_treeview.configure(height=95)
-            com_pl_treeview.column('#0', width=0)
-            com_pl_treeview.column('1', anchor=W, width=400)
-            com_pl_treeview.column('2', anchor=W, width=175)
-            com_pl_treeview.column('3', anchor=W, width=175)
-            com_pl_treeview.heading('1', text='Particulars')
-            com_pl_treeview.heading('2', text='Amount')
-            com_pl_treeview.heading('3', text='Percentage')
-            for j in range(15):
-                com_pl_treeview.insert(parent='', index=END, values=self.com_pl[j])
-            com_pl_treeview.place(x=0, y=20)
-
-            com_bs_treeview = tkinter.ttk.Treeview(self.common_bs_frame, columns=('1', '2', '3'))
-            com_bs_treeview.configure(height=95)
-            com_bs_treeview.column('#0', width=0)
-            com_bs_treeview.column('1', anchor=W, width=400)
-            com_bs_treeview.column('2', anchor=W, width=175)
-            com_bs_treeview.column('3', anchor=W, width=175)
-            com_bs_treeview.heading('1', text='Particulars')
-            com_bs_treeview.heading('2', text='Amount')
-            com_bs_treeview.heading('3', text='Percentage')
-            for j in range(13):
-                com_bs_treeview.insert(parent='', index=END, values=self.com_bs[j])
-            com_bs_treeview.place(x=0, y=20)
+            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                            bs_frame=self.common_bs_frame)
+            statement.create_statement()
         if self.common_var.get() == 2:
             self.com_pl = self.company_data2[0].com_size_pl()
             self.com_bs = self.company_data2[1].com_size_bs()
-            com_pl_treeview = tkinter.ttk.Treeview(self.common_p_l_frame, columns=('1', '2', '3'))
-            com_pl_treeview.configure(height=95)
-            com_pl_treeview.column('#0', width=0)
-            com_pl_treeview.column('1', anchor=W, width=400)
-            com_pl_treeview.column('2', anchor=W, width=175)
-            com_pl_treeview.column('3', anchor=W, width=175)
-            com_pl_treeview.heading('1', text='Particulars')
-            com_pl_treeview.heading('2', text='Amount')
-            com_pl_treeview.heading('3', text='Percentage')
-            for j in range(15):
-                com_pl_treeview.insert(parent='', index=END, values=self.com_pl[j])
-            com_pl_treeview.place(x=0, y=20)
-
-            com_bs_treeview = tkinter.ttk.Treeview(self.common_bs_frame, columns=('1', '2', '3'))
-            com_bs_treeview.configure(height=95)
-            com_bs_treeview.column('#0', width=0)
-            com_bs_treeview.column('1', anchor=W, width=400)
-            com_bs_treeview.column('2', anchor=W, width=175)
-            com_bs_treeview.column('3', anchor=W, width=175)
-            com_bs_treeview.heading('1', text='Particulars')
-            com_bs_treeview.heading('2', text='Amount')
-            com_bs_treeview.heading('3', text='Percentage')
-            for j in range(13):
-                com_bs_treeview.insert(parent='', index=END, values=self.com_bs[j])
-            com_bs_treeview.place(x=0, y=20)
+            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                            bs_frame=self.common_bs_frame)
+            statement.create_statement()
         if self.common_var.get() == 3:
             self.com_pl = self.company_data3[0].com_size_pl()
             self.com_bs = self.company_data3[1].com_size_bs()
-            com_pl_treeview = tkinter.ttk.Treeview(self.common_p_l_frame, columns=('1', '2', '3'))
-            com_pl_treeview.configure(height=95)
-            com_pl_treeview.column('#0', width=0)
-            com_pl_treeview.column('1', anchor=W, width=400)
-            com_pl_treeview.column('2', anchor=W, width=175)
-            com_pl_treeview.column('3', anchor=W, width=175)
-            com_pl_treeview.heading('1', text='Particulars')
-            com_pl_treeview.heading('2', text='Amount')
-            com_pl_treeview.heading('3', text='Percentage')
-            for j in range(15):
-                com_pl_treeview.insert(parent='', index=END, values=self.com_pl[j])
-            com_pl_treeview.place(x=0, y=20)
-
-            com_bs_treeview = tkinter.ttk.Treeview(self.common_bs_frame, columns=('1', '2', '3'))
-            com_bs_treeview.configure(height=95)
-            com_bs_treeview.column('#0', width=0)
-            com_bs_treeview.column('1', anchor=W, width=400)
-            com_bs_treeview.column('2', anchor=W, width=175)
-            com_bs_treeview.column('3', anchor=W, width=175)
-            com_bs_treeview.heading('1', text='Particulars')
-            com_bs_treeview.heading('2', text='Amount')
-            com_bs_treeview.heading('3', text='Percentage')
-            for j in range(13):
-                com_bs_treeview.insert(parent='', index=END, values=self.com_bs[j])
-            com_bs_treeview.place(x=0, y=20)
+            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                            bs_frame=self.common_bs_frame)
+            statement.create_statement()
         if self.common_var.get() == 4:
             self.com_pl = self.company_data4[0].com_size_pl()
             self.com_bs = self.company_data4[1].com_size_bs()
-            com_pl_treeview = tkinter.ttk.Treeview(self.common_p_l_frame, columns=('1', '2', '3'))
-            com_pl_treeview.configure(height=95)
-            com_pl_treeview.column('#0', width=0)
-            com_pl_treeview.column('1', anchor=W, width=400)
-            com_pl_treeview.column('2', anchor=W, width=175)
-            com_pl_treeview.column('3', anchor=W, width=175)
-            com_pl_treeview.heading('1', text='Particulars')
-            com_pl_treeview.heading('2', text='Amount')
-            com_pl_treeview.heading('3', text='Percentage')
-            for j in range(15):
-                com_pl_treeview.insert(parent='', index=END, values=self.com_pl[j])
-            com_pl_treeview.place(x=0, y=20)
-
-            com_bs_treeview = tkinter.ttk.Treeview(self.common_bs_frame, columns=('1', '2', '3'))
-            com_bs_treeview.configure(height=95)
-            com_bs_treeview.column('#0', width=0)
-            com_bs_treeview.column('1', anchor=W, width=400)
-            com_bs_treeview.column('2', anchor=W, width=175)
-            com_bs_treeview.column('3', anchor=W, width=175)
-            com_bs_treeview.heading('1', text='Particulars')
-            com_bs_treeview.heading('2', text='Amount')
-            com_bs_treeview.heading('3', text='Percentage')
-            for j in range(13):
-                com_bs_treeview.insert(parent='', index=END, values=self.com_bs[j])
-            com_bs_treeview.place(x=0, y=20)
+            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                            bs_frame=self.common_bs_frame)
+            statement.create_statement()
         if self.common_var.get() == 5:
             self.com_pl = self.company_data5[0].com_size_pl()
             self.com_bs = self.company_data5[1].com_size_bs()
-            com_pl_treeview = tkinter.ttk.Treeview(self.common_p_l_frame, columns=('1', '2', '3'))
-            com_pl_treeview.configure(height=95)
-            com_pl_treeview.column('#0', width=0)
-            com_pl_treeview.column('1', anchor=W, width=400)
-            com_pl_treeview.column('2', anchor=W, width=175)
-            com_pl_treeview.column('3', anchor=W, width=175)
-            com_pl_treeview.heading('1', text='Particulars')
-            com_pl_treeview.heading('2', text='Amount')
-            com_pl_treeview.heading('3', text='Percentage')
-            for j in range(15):
-                com_pl_treeview.insert(parent='', index=END, values=self.com_pl[j])
-            com_pl_treeview.place(x=0, y=20)
-
-            com_bs_treeview = tkinter.ttk.Treeview(self.common_bs_frame, columns=('1', '2', '3'))
-            com_bs_treeview.configure(height=95)
-            com_bs_treeview.column('#0', width=0)
-            com_bs_treeview.column('1', anchor=W, width=400)
-            com_bs_treeview.column('2', anchor=W, width=175)
-            com_bs_treeview.column('3', anchor=W, width=175)
-            com_bs_treeview.heading('1', text='Particulars')
-            com_bs_treeview.heading('2', text='Amount')
-            com_bs_treeview.heading('3', text='Percentage')
-            for j in range(13):
-                com_bs_treeview.insert(parent='', index=END, values=self.com_bs[j])
-            com_bs_treeview.place(x=0, y=20)
+            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                            bs_frame=self.common_bs_frame)
+            statement.create_statement()
         if self.common_var.get() == 6:
             self.com_pl = self.company_data6[0].com_size_pl()
             self.com_bs = self.company_data6[1].com_size_bs()
-            com_pl_treeview = tkinter.ttk.Treeview(self.common_p_l_frame, columns=('1', '2', '3'))
-            com_pl_treeview.configure(height=95)
-            com_pl_treeview.column('#0', width=0)
-            com_pl_treeview.column('1', anchor=W, width=400)
-            com_pl_treeview.column('2', anchor=W, width=175)
-            com_pl_treeview.column('3', anchor=W, width=175)
-            com_pl_treeview.heading('1', text='Particulars')
-            com_pl_treeview.heading('2', text='Amount')
-            com_pl_treeview.heading('3', text='Percentage')
-            for j in range(15):
-                com_pl_treeview.insert(parent='', index=END, values=self.com_pl[j])
-            com_pl_treeview.place(x=0, y=20)
-
-            com_bs_treeview = tkinter.ttk.Treeview(self.common_bs_frame, columns=('1', '2', '3'))
-            com_bs_treeview.configure(height=95)
-            com_bs_treeview.column('#0', width=0)
-            com_bs_treeview.column('1', anchor=W, width=400)
-            com_bs_treeview.column('2', anchor=W, width=175)
-            com_bs_treeview.column('3', anchor=W, width=175)
-            com_bs_treeview.heading('1', text='Particulars')
-            com_bs_treeview.heading('2', text='Amount')
-            com_bs_treeview.heading('3', text='Percentage')
-            for j in range(13):
-                com_bs_treeview.insert(parent='', index=END, values=self.com_bs[j])
-            com_bs_treeview.place(x=0, y=20)
+            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                            bs_frame=self.common_bs_frame)
+            statement.create_statement()
 
     def trend_rfo(self):
         trend_value1 = self.company_data1[0].rfo
@@ -677,24 +543,10 @@ class FinancialAnalysis:
         year5 = self.company_data5[0].year
         year6 = self.company_data6[0].year
         x = [year1, year2, year3, year4, year5, year6]
-        trend_treeview = tkinter.ttk.Treeview(self.trend_table_frame, columns=('1', '2'))
-        trend_treeview.configure(height=45)
-        trend_treeview.column('#0', width=0)
-        trend_treeview.column('1', anchor=W, width=588)
-        trend_treeview.column('2', anchor=W, width=588)
-        trend_treeview.heading('1', text='Year')
-        trend_treeview.heading('2', text='Amount')
-        for j in range(6):
-            trend_treeview.insert(parent='', index=END, values=(x[j], y[j]))
-        trend_treeview.place(x=0, y=0)
-        fig = plt.Figure(figsize=(24, 7), dpi=50)
-        ax = fig.add_subplot(111)
-        ax.set_title('Revenue From Operations')
-        ax.bar(x, y, 0.25)
-        chart = FigureCanvasTkAgg(fig, self.trend_graph_frame)
-        chart.get_tk_widget().place(x=0, y=0)
-        tool_bar = NavigationToolbar2Tk(chart, self.trend_graph_frame)
-        tool_bar.place(x=0, y=0)
+        trend_statement = TrendAnalysis(trend=y, year=x, table_frame=self.trend_table_frame,
+                                        graph_frame=self.trend_graph_frame, title='Revenue From Operations')
+        trend_statement.create_table()
+        trend_statement.create_graph()
 
     def trend_gp(self):
         trend_value1 = self.company_data1[0].gp
@@ -711,24 +563,10 @@ class FinancialAnalysis:
         year5 = self.company_data5[0].year
         year6 = self.company_data6[0].year
         x = [year1, year2, year3, year4, year5, year6]
-        trend_treeview = tkinter.ttk.Treeview(self.trend_table_frame, columns=('1', '2'))
-        trend_treeview.configure(height=45)
-        trend_treeview.column('#0', width=0)
-        trend_treeview.column('1', anchor=W, width=588)
-        trend_treeview.column('2', anchor=W, width=588)
-        trend_treeview.heading('1', text='Year')
-        trend_treeview.heading('2', text='Amount')
-        for j in range(6):
-            trend_treeview.insert(parent='', index=END, values=(x[j], y[j]))
-        trend_treeview.place(x=0, y=0)
-        fig = plt.Figure(figsize=(24, 7), dpi=50)
-        ax = fig.add_subplot(111)
-        ax.set_title('Gross Profit')
-        ax.bar(x, y, 0.25)
-        chart = FigureCanvasTkAgg(fig, self.trend_graph_frame)
-        chart.get_tk_widget().place(x=0, y=0)
-        tool_bar = NavigationToolbar2Tk(chart, self.trend_graph_frame)
-        tool_bar.place(x=0, y=0)
+        trend_statement = TrendAnalysis(trend=y, year=x, table_frame=self.trend_table_frame,
+                                        graph_frame=self.trend_graph_frame, title='Gross Profit')
+        trend_statement.create_table()
+        trend_statement.create_graph()
 
     def trend_op(self):
         trend_value1 = self.company_data1[0].op
@@ -745,24 +583,10 @@ class FinancialAnalysis:
         year5 = self.company_data5[0].year
         year6 = self.company_data6[0].year
         x = [year1, year2, year3, year4, year5, year6]
-        trend_treeview = tkinter.ttk.Treeview(self.trend_table_frame, columns=('1', '2'))
-        trend_treeview.configure(height=45)
-        trend_treeview.column('#0', width=0)
-        trend_treeview.column('1', anchor=W, width=588)
-        trend_treeview.column('2', anchor=W, width=588)
-        trend_treeview.heading('1', text='Year')
-        trend_treeview.heading('2', text='Amount')
-        for j in range(6):
-            trend_treeview.insert(parent='', index=END, values=(x[j], y[j]))
-        trend_treeview.place(x=0, y=0)
-        fig = plt.Figure(figsize=(24, 7), dpi=50)
-        ax = fig.add_subplot(111)
-        ax.set_title('Operating Profit')
-        ax.bar(x, y, 0.25)
-        chart = FigureCanvasTkAgg(fig, self.trend_graph_frame)
-        chart.get_tk_widget().place(x=0, y=0)
-        tool_bar = NavigationToolbar2Tk(chart, self.trend_graph_frame)
-        tool_bar.place(x=0, y=0)
+        trend_statement = TrendAnalysis(trend=y, year=x, table_frame=self.trend_table_frame,
+                                        graph_frame=self.trend_graph_frame, title='Operating Profit')
+        trend_statement.create_table()
+        trend_statement.create_graph()
 
     def trend_np(self):
         trend_value1 = self.company_data1[0].pat
@@ -779,24 +603,10 @@ class FinancialAnalysis:
         year5 = self.company_data5[0].year
         year6 = self.company_data6[0].year
         x = [year1, year2, year3, year4, year5, year6]
-        trend_treeview = tkinter.ttk.Treeview(self.trend_table_frame, columns=('1', '2'))
-        trend_treeview.configure(height=45)
-        trend_treeview.column('#0', width=0)
-        trend_treeview.column('1', anchor=W, width=588)
-        trend_treeview.column('2', anchor=W, width=588)
-        trend_treeview.heading('1', text='Year')
-        trend_treeview.heading('2', text='Amount')
-        for j in range(6):
-            trend_treeview.insert(parent='', index=END, values=(x[j], y[j]))
-        trend_treeview.place(x=0, y=0)
-        fig = plt.Figure(figsize=(24, 7), dpi=50)
-        ax = fig.add_subplot(111)
-        ax.set_title('Net Profit')
-        ax.bar(x, y, 0.25)
-        chart = FigureCanvasTkAgg(fig, self.trend_graph_frame)
-        chart.get_tk_widget().place(x=0, y=0)
-        tool_bar = NavigationToolbar2Tk(chart, self.trend_graph_frame)
-        tool_bar.place(x=0, y=0)
+        trend_statement = TrendAnalysis(trend=y, year=x, table_frame=self.trend_table_frame,
+                                        graph_frame=self.trend_graph_frame, title='Net Profit')
+        trend_statement.create_table()
+        trend_statement.create_graph()
 
     def trend_debt(self):
         trend_value1 = self.company_data1[1].ltb
@@ -813,24 +623,10 @@ class FinancialAnalysis:
         year5 = self.company_data5[0].year
         year6 = self.company_data6[0].year
         x = [year1, year2, year3, year4, year5, year6]
-        trend_treeview = tkinter.ttk.Treeview(self.trend_table_frame, columns=('1', '2'))
-        trend_treeview.configure(height=45)
-        trend_treeview.column('#0', width=0)
-        trend_treeview.column('1', anchor=W, width=588)
-        trend_treeview.column('2', anchor=W, width=588)
-        trend_treeview.heading('1', text='Year')
-        trend_treeview.heading('2', text='Amount')
-        for j in range(6):
-            trend_treeview.insert(parent='', index=END, values=(x[j], y[j]))
-        trend_treeview.place(x=0, y=0)
-        fig = plt.Figure(figsize=(24, 7), dpi=50)
-        ax = fig.add_subplot(111)
-        ax.set_title('Debt')
-        ax.bar(x, y, 0.25)
-        chart = FigureCanvasTkAgg(fig, self.trend_graph_frame)
-        chart.get_tk_widget().place(x=0, y=0)
-        tool_bar = NavigationToolbar2Tk(chart, self.trend_graph_frame)
-        tool_bar.place(x=0, y=0)
+        trend_statement = TrendAnalysis(trend=y, year=x, table_frame=self.trend_table_frame,
+                                        graph_frame=self.trend_graph_frame, title='Debt')
+        trend_statement.create_table()
+        trend_statement.create_graph()
 
     def trend_ox(self):
         trend_value1 = self.company_data1[0].oe
@@ -847,24 +643,10 @@ class FinancialAnalysis:
         year5 = self.company_data5[0].year
         year6 = self.company_data6[0].year
         x = [year1, year2, year3, year4, year5, year6]
-        trend_treeview = tkinter.ttk.Treeview(self.trend_table_frame, columns=('1', '2'))
-        trend_treeview.configure(height=45)
-        trend_treeview.column('#0', width=0)
-        trend_treeview.column('1', anchor=W, width=588)
-        trend_treeview.column('2', anchor=W, width=588)
-        trend_treeview.heading('1', text='Year')
-        trend_treeview.heading('2', text='Amount')
-        for j in range(6):
-            trend_treeview.insert(parent='', index=END, values=(x[j], y[j]))
-        trend_treeview.place(x=0, y=0)
-        fig = plt.Figure(figsize=(24, 7), dpi=50)
-        ax = fig.add_subplot(111)
-        ax.set_title('Operating Expenses')
-        ax.bar(x, y, 0.25)
-        chart = FigureCanvasTkAgg(fig, self.trend_graph_frame)
-        chart.get_tk_widget().place(x=0, y=0)
-        tool_bar = NavigationToolbar2Tk(chart, self.trend_graph_frame)
-        tool_bar.place(x=0, y=0)
+        trend_statement = TrendAnalysis(trend=y, year=x, table_frame=self.trend_table_frame,
+                                        graph_frame=self.trend_graph_frame, title='Operating Expenses')
+        trend_statement.create_table()
+        trend_statement.create_graph()
 
     def ratio(self):
         ratios1 = Ratios(self.company_data1[0], self.company_data1[1])
