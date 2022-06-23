@@ -657,585 +657,246 @@ class FinancialAnalysis:
         ratios6 = Ratios(self.company_data6[0], self.company_data6[1])
 
         if self.liquidity_ratio.get() == 'Current Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.current_ratio(), ratios2.current_ratio(), ratios3.current_ratio(),
                           ratios4.current_ratio(), ratios5.current_ratio(), ratios6.current_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
-
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
-
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
         if self.liquidity_ratio.get() == 'Quick Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.quick_ratio(), ratios2.quick_ratio(), ratios3.quick_ratio(),
                           ratios4.quick_ratio(), ratios5.quick_ratio(), ratios6.quick_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.liquidity_ratio.get() == 'Cash Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.absolute_ratio(), ratios2.absolute_ratio(), ratios3.absolute_ratio(),
                           ratios4.absolute_ratio(), ratios5.absolute_ratio(), ratios6.absolute_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.solvency_ratio.get() == 'Debt to Equity Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.debt_equity_ratio(), ratios2.debt_equity_ratio(), ratios3.debt_equity_ratio(),
                           ratios4.debt_equity_ratio(), ratios5.debt_equity_ratio(), ratios6.debt_equity_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.solvency_ratio.get() == 'Debt to Capital Employed Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.debt_capital_ratio(), ratios2.debt_capital_ratio(), ratios3.debt_capital_ratio(),
                           ratios4.debt_capital_ratio(), ratios5.debt_capital_ratio(), ratios6.debt_capital_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.solvency_ratio.get() == 'Proprietary Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.proprietary_ratio(), ratios2.proprietary_ratio(), ratios3.proprietary_ratio(),
                           ratios4.proprietary_ratio(), ratios5.proprietary_ratio(), ratios6.proprietary_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.solvency_ratio.get() == 'Interest Coverage Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.icr(), ratios2.icr(), ratios3.icr(), ratios4.icr(), ratios5.icr(), ratios6.icr()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.profitability_ratio.get() == 'Gross Profit Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.gp_ratio(), ratios2.gp_ratio(), ratios3.gp_ratio(), ratios4.gp_ratio(),
                           ratios5.gp_ratio(), ratios6.gp_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.profitability_ratio.get() == 'Proprietary Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.proprietary_ratio(), ratios2.proprietary_ratio(), ratios3.proprietary_ratio(),
                           ratios4.proprietary_ratio(), ratios5.proprietary_ratio(), ratios6.proprietary_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.profitability_ratio.get() == 'Operating Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.operating_ratio(), ratios2.operating_ratio(), ratios3.operating_ratio(),
                           ratios4.operating_ratio(), ratios5.operating_ratio(), ratios6.operating_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.profitability_ratio.get() == 'Operating Profit Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.operating_profit_ratio(), ratios2.operating_profit_ratio(),
                           ratios3.operating_profit_ratio(), ratios4.operating_profit_ratio(),
                           ratios5.operating_profit_ratio(), ratios6.operating_profit_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.profitability_ratio.get() == 'Net Profit Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.net_profit_ratio(), ratios2.net_profit_ratio(), ratios3.net_profit_ratio(),
                           ratios4.net_profit_ratio(), ratios5.net_profit_ratio(), ratios6.net_profit_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.profitability_ratio.get() == 'Return on Investment Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.roi_ratio(), ratios2.roi_ratio(), ratios3.roi_ratio(),  ratios4.roi_ratio(),
                           ratios5.roi_ratio(), ratios6.roi_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.profitability_ratio.get() == 'Return on Networth Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.ronw_ratio(), ratios2.ronw_ratio(), ratios3.ronw_ratio(), ratios4.ronw_ratio(),
                           ratios5.ronw_ratio(), ratios6.ronw_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
-
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
         if self.profitability_ratio.get() == 'Earnings Per Share':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.eps_ratio(), ratios2.eps_ratio(), ratios3.eps_ratio(), ratios4.eps_ratio(),
                           ratios5.eps_ratio(), ratios6.eps_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
         if self.profitability_ratio.get() == 'Book Value Per Share':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.bps_ratio(), ratios2.bps_ratio(), ratios3.bps_ratio(), ratios4.bps_ratio(),
                           ratios5.bps_ratio(), ratios6.bps_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.profitability_ratio.get() == 'Dividend Payout Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.dp_ratio(), ratios2.dp_ratio(), ratios3.dp_ratio(), ratios4.dp_ratio(),
                           ratios5.ronw_ratio(), ratios6.ronw_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.profitability_ratio.get() == 'Price Earning Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.pe_ratio(), ratios2.pe_ratio(), ratios3.pe_ratio(), ratios4.pe_ratio(),
                           ratios5.pe_ratio(), ratios6.pe_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.turnover_ratio.get() == 'Inventory Turnover Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.inventory_turnover_ratio(), ratios2.inventory_turnover_ratio(),
                           ratios3.inventory_turnover_ratio(), ratios4.inventory_turnover_ratio(),
                           ratios5.inventory_turnover_ratio(), ratios6.inventory_turnover_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.turnover_ratio.get() == 'Debtors Turnover Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.tr_turnover_ratio(), ratios2.tr_turnover_ratio(), ratios3.tr_turnover_ratio(),
                           ratios4.tr_turnover_ratio(), ratios5.tr_turnover_ratio(), ratios6.tr_turnover_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.turnover_ratio.get() == 'Creditors Turnover Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.tp_turnover_ratio(), ratios2.tp_turnover_ratio(), ratios3.tp_turnover_ratio(),
                           ratios4.tp_turnover_ratio(), ratios5.tp_turnover_ratio(), ratios6.tp_turnover_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.turnover_ratio.get() == 'Capital Turnover Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.capital_turnover_ratio(), ratios2.capital_turnover_ratio(),
                           ratios3.capital_turnover_ratio(), ratios4.capital_turnover_ratio(),
                           ratios5.capital_turnover_ratio(), ratios6.capital_turnover_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.turnover_ratio.get() == 'Fixed Asset Turnover Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.fixed_asset_turnover_ratio(), ratios2.fixed_asset_turnover_ratio(),
                           ratios3.fixed_asset_turnover_ratio(), ratios4.fixed_asset_turnover_ratio(),
                           ratios5.fixed_asset_turnover_ratio(), ratios6.fixed_asset_turnover_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
         if self.turnover_ratio.get() == 'Working Capital Turnover Ratio':
-            ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
-            ratio_treeview.configure(height=45)
-            ratio_treeview.column('#0', width=0)
-            ratio_treeview.column('1', anchor=W, width=588)
-            ratio_treeview.column('2', anchor=W, width=588)
-            ratio_treeview.heading('1', text='Year')
-            ratio_treeview.heading('2', text='Ratio')
             year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
                          self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
             ratio_list = [ratios1.working_capital_turnover_ratio(), ratios2.working_capital_turnover_ratio(),
                           ratios3.working_capital_turnover_ratio(), ratios4.working_capital_turnover_ratio(),
                           ratios5.working_capital_turnover_ratio(), ratios6.working_capital_turnover_ratio()]
-            for i in range(6):
-                ratio_treeview.insert(parent='', index=END, values=(year_list[i], ratio_list[i]))
-            ratio_treeview.place(x=0, y=0)
-
-            fig = plt.Figure(figsize=(24, 7), dpi=50)
-            ax = fig.add_subplot(111)
-            ax.set_title('Ratio')
-            ax.bar(year_list, ratio_list, 0.25)
-            chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
-            chart.get_tk_widget().place(x=0, y=0)
-            toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
-            toolbar.place(x=0, y=0)
+            statement = RatioAnalysis(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
+                                      graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 
 
 master = Tk()

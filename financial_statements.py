@@ -378,11 +378,11 @@ class Ratios:
         return self.bps
 
     def dp_ratio(self):
-        self.dpr = self.bs.dps/self.eps
+        self.dpr = self.bs.dps/(self.pl.pat/self.bs.share_no)
         return self.dpr
 
     def pe_ratio(self):
-        self.per = self.bs.mps/self.eps
+        self.per = self.bs.mps/(self.pl.pat/self.bs.share_no)
         return self.per
 
     def inventory_turnover_ratio(self):

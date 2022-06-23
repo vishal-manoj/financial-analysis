@@ -208,4 +208,31 @@ class TrendAnalysis:
         tool_bar.place(x=0, y=0)
 
 
+class RatioAnalysis:
+    def __init__(self, year, ratio, table_frame, graph_frame):
+        self.year_list = year
+        self.ratio_list = ratio
+        self.ratio_table_frame = table_frame
+        self.ratio_graph_frame = graph_frame
 
+    def create_table(self):
+        ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
+        ratio_treeview.configure(height=45)
+        ratio_treeview.column('#0', width=0)
+        ratio_treeview.column('1', anchor=W, width=588)
+        ratio_treeview.column('2', anchor=W, width=588)
+        ratio_treeview.heading('1', text='Year')
+        ratio_treeview.heading('2', text='Ratio')
+        for i in range(6):
+            ratio_treeview.insert(parent='', index=END, values=(self.year_list[i], self.ratio_list[i]))
+        ratio_treeview.place(x=0, y=0)
+
+    def create_graph(self):
+        fig = plt.Figure(figsize=(24, 7), dpi=50)
+        ax = fig.add_subplot(111)
+        ax.set_title('Ratio')
+        ax.bar(self.year_list, self.ratio_list, 0.25)
+        chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
+        chart.get_tk_widget().place(x=0, y=0)
+        toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
+        toolbar.place(x=0, y=0)
