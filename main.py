@@ -7,6 +7,8 @@ from analysis import *
 
 class FinancialAnalysis:
     def __init__(self, root):
+        self.x = None
+        self.y = None
         self.com_pl = None
         self.com_bs = None
         self.base_year = None
@@ -33,6 +35,19 @@ class FinancialAnalysis:
         self.clear_list = None
         self.item = None
         self.delete_list = None
+        self.no_of_years = None
+        self.trend_value1 = None
+        self.trend_value2 = None
+        self.trend_value3 = None
+        self.trend_value4 = None
+        self.trend_value5 = None
+        self.trend_value6 = None
+        self.year1 = None
+        self.year2 = None
+        self.year3 = None
+        self.year4 = None
+        self.year5 = None
+        self.year6 = None
         self.root = root
         self.root.state('zoomed')
         self.root.title('Financial Analysis Software')
@@ -210,9 +225,9 @@ class FinancialAnalysis:
         year_count_label = Label(year_count_frame, text='Number of Years: ')
         year_count_label.place(x=0, y=20)
         self.year_count = StringVar()
-        self.year_count_spin_box = Spinbox(year_count_frame, from_=0, to=6, textvariable=self.year_count, wrap=True)
+        self.year_count_spin_box = Spinbox(year_count_frame, from_=2, to=6, textvariable=self.year_count, wrap=True)
         self.year_count_spin_box.place(x=110, y=22)
-        self.submit_spin_button = Button(year_count_frame, text='Submit', height=2, width=30)
+        self.submit_spin_button = Button(year_count_frame, text='Submit', height=2, width=30, command=self.count_year)
         self.submit_spin_button.place(x=500, y=15)
 
         # Comparative statement, frames and radio buttons
@@ -257,21 +272,10 @@ class FinancialAnalysis:
         common_bs_label.place(x=0, y=1)
         self.com_submit_b = Button(common_frame, text='Submit', width=30, height=2, command=self.com_size_statement)
         self.com_submit_b.place(x=1250, y=26)
-
-        self.common_var = IntVar()
-        self.common_var1 = Radiobutton(common_frame, text='Year 1', font=(None, 10), variable=self.common_var, value=1)
-        self.common_var1.place(x=0, y=35)
-        self.common_var1.select()
-        self.common_var2 = Radiobutton(common_frame, text='Year 2', font=(None, 10), variable=self.common_var, value=2)
-        self.common_var2.place(x=120, y=35)
-        self.common_var3 = Radiobutton(common_frame, text='Year 3', font=(None, 10), variable=self.common_var, value=3)
-        self.common_var3.place(x=240, y=35)
-        self.common_var4 = Radiobutton(common_frame, text='Year 4', font=(None, 10), variable=self.common_var, value=4)
-        self.common_var4.place(x=360, y=35)
-        self.common_var5 = Radiobutton(common_frame, text='Year 5', font=(None, 10), variable=self.common_var, value=5)
-        self.common_var5.place(x=480, y=35)
-        self.common_var6 = Radiobutton(common_frame, text='Year 6', font=(None, 10), variable=self.common_var, value=6)
-        self.common_var6.place(x=600, y=35)
+        com_year_label = Label(common_frame, text='Enter Year: ')
+        com_year_label.place(x=0, y=35)
+        self.com_year_entry = Entry(common_frame, width=40)
+        self.com_year_entry.place(x=100, y=35)
 
         # Ratio frames and components
         self.ratio_option_frame = Frame(ratio_frame, bg='orange', highlightbackground='orange', highlightthickness=3,
@@ -345,6 +349,18 @@ class FinancialAnalysis:
                                        height=350)
         self.trend_graph_frame.place(x=325, y=325)
 
+    def count_year(self):
+        self.no_of_years = int(self.year_count_spin_box.get())
+        entry_list = [self.company_entry, self.year_entry, self.rfo_entry, self.oi_entry, self.com_entry,
+                      self.purchase_entry, self.cii_entry, self.ebe_entry, self.fc_entry, self.dna_entry,
+                      self.ode_entry, self.oie_entry, self.tax_entry, self.share_fund_entry, self.ps_entry,
+                      self.ltb_entry, self.oll_entry, self.tp_entry, self.ocl_entry, self.fa_entry,
+                      self.lti_entry, self.ltl_entry, self.ola_entry, self.inv_entry, self.tr_entry,
+                      self.cac_entry, self.oca_entry, self.nes_entry, self.dps_entry, self.mps_entry,
+                      self.upload_button, self.clear_button]
+        for entry in entry_list:
+            entry['state'] = NORMAL
+
     def upload_data(self):
         self.delete_list = [self.company_entry, self.year_entry, self.rfo_entry, self.oi_entry, self.com_entry,
                             self.purchase_entry, self.cii_entry, self.ebe_entry, self.fc_entry, self.dna_entry,
@@ -352,7 +368,7 @@ class FinancialAnalysis:
                             self.ltb_entry, self.oll_entry, self.tp_entry, self.ocl_entry, self.fa_entry,
                             self.lti_entry, self.ltl_entry, self.ola_entry, self.inv_entry, self.tr_entry,
                             self.cac_entry, self.oca_entry, self.nes_entry, self.dps_entry, self.mps_entry]
-        if self.count == 1:
+        if self.count == 1 and self.count <= self.no_of_years:
             self.p_l1 = Pl(name=self.company_entry.get(), year=self.year_entry.get(),
                            rfo=int(self.rfo_entry.get()), oi=int(self.oi_entry.get()), com=int(self.com_entry.get()),
                            purchases=int(self.purchase_entry.get()), cii=int(self.cii_entry.get()),
@@ -374,7 +390,7 @@ class FinancialAnalysis:
             for self.item in self.delete_list:
                 self.item.delete(0, END)
 
-        if self.count == 2:
+        if self.count == 2 and self.count <= self.no_of_years:
             self.p_l2 = Pl(name=self.company_entry.get(), year=self.year_entry.get(),
                            rfo=int(self.rfo_entry.get()), oi=int(self.oi_entry.get()), com=int(self.com_entry.get()),
                            purchases=int(self.purchase_entry.get()), cii=int(self.cii_entry.get()),
@@ -396,7 +412,7 @@ class FinancialAnalysis:
             for self.item in self.delete_list:
                 self.item.delete(0, END)
 
-        if self.count == 3:
+        if self.count == 3 and self.count <= self.no_of_years:
             self.p_l3 = Pl(name=self.company_entry.get(), year=self.year_entry.get(),
                            rfo=int(self.rfo_entry.get()), oi=int(self.oi_entry.get()), com=int(self.com_entry.get()),
                            purchases=int(self.purchase_entry.get()), cii=int(self.cii_entry.get()),
@@ -418,7 +434,7 @@ class FinancialAnalysis:
             for self.item in self.delete_list:
                 self.item.delete(0, END)
 
-        if self.count == 4:
+        if self.count == 4 and self.count <= self.no_of_years:
             self.p_l4 = Pl(name=self.company_entry.get(), year=self.year_entry.get(),
                            rfo=int(self.rfo_entry.get()), oi=int(self.oi_entry.get()), com=int(self.com_entry.get()),
                            purchases=int(self.purchase_entry.get()), cii=int(self.cii_entry.get()),
@@ -440,7 +456,7 @@ class FinancialAnalysis:
             for self.item in self.delete_list:
                 self.item.delete(0, END)
 
-        if self.count == 5:
+        if self.count == 5 and self.count <= self.no_of_years:
             self.p_l5 = Pl(name=self.company_entry.get(), year=self.year_entry.get(),
                            rfo=int(self.rfo_entry.get()), oi=int(self.oi_entry.get()), com=int(self.com_entry.get()),
                            purchases=int(self.purchase_entry.get()), cii=int(self.cii_entry.get()),
@@ -462,7 +478,7 @@ class FinancialAnalysis:
             for self.item in self.delete_list:
                 self.item.delete(0, END)
 
-        if self.count == 6:
+        if self.count == 6 and self.count <= self.no_of_years:
             self.p_l6 = Pl(name=self.company_entry.get(), year=self.year_entry.get(),
                            rfo=int(self.rfo_entry.get()), oi=int(self.oi_entry.get()), com=int(self.com_entry.get()),
                            purchases=int(self.purchase_entry.get()), cii=int(self.cii_entry.get()),
@@ -502,159 +518,291 @@ class FinancialAnalysis:
         statement.create_statement()
 
     def com_size_statement(self):
-        if self.common_var.get() == 1:
-            self.com_pl = self.company_data1[0].com_size_pl()
-            self.com_bs = self.company_data1[1].com_size_bs()
-            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
-                                            bs_frame=self.common_bs_frame)
-            statement.create_statement()
-        if self.common_var.get() == 2:
-            self.com_pl = self.company_data2[0].com_size_pl()
-            self.com_bs = self.company_data2[1].com_size_bs()
-            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
-                                            bs_frame=self.common_bs_frame)
-            statement.create_statement()
-        if self.common_var.get() == 3:
-            self.com_pl = self.company_data3[0].com_size_pl()
-            self.com_bs = self.company_data3[1].com_size_bs()
-            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
-                                            bs_frame=self.common_bs_frame)
-            statement.create_statement()
-        if self.common_var.get() == 4:
-            self.com_pl = self.company_data4[0].com_size_pl()
-            self.com_bs = self.company_data4[1].com_size_bs()
-            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
-                                            bs_frame=self.common_bs_frame)
-            statement.create_statement()
-        if self.common_var.get() == 5:
-            self.com_pl = self.company_data5[0].com_size_pl()
-            self.com_bs = self.company_data5[1].com_size_bs()
-            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
-                                            bs_frame=self.common_bs_frame)
-            statement.create_statement()
-        if self.common_var.get() == 6:
-            self.com_pl = self.company_data6[0].com_size_pl()
-            self.com_bs = self.company_data6[1].com_size_bs()
-            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
-                                            bs_frame=self.common_bs_frame)
-            statement.create_statement()
+        if self.company_data1 is not None:
+            if self.com_year_entry.get() == self.company_data1[0].year:
+                self.com_pl = self.company_data1[0].com_size_pl()
+                self.com_bs = self.company_data1[1].com_size_bs()
+                statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                                bs_frame=self.common_bs_frame)
+                statement.create_statement()
+        if self.company_data2 is not None:
+            if self.com_year_entry.get() == self.company_data2[0].year:
+                self.com_pl = self.company_data2[0].com_size_pl()
+                self.com_bs = self.company_data2[1].com_size_bs()
+                statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                                bs_frame=self.common_bs_frame)
+                statement.create_statement()
+        if self.company_data3 is not None:
+            if self.com_year_entry.get() == self.company_data3[0].year:
+                self.com_pl = self.company_data3[0].com_size_pl()
+                self.com_bs = self.company_data3[1].com_size_bs()
+                statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                                bs_frame=self.common_bs_frame)
+                statement.create_statement()
+        if self.company_data4 is not None:
+            if self.com_year_entry.get() == self.company_data4[0].year:
+                self.com_pl = self.company_data4[0].com_size_pl()
+                self.com_bs = self.company_data4[1].com_size_bs()
+                statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                                bs_frame=self.common_bs_frame)
+                statement.create_statement()
+        if self.company_data5 is not None:
+            if self.com_year_entry.get() == self.company_data5[0].year:
+                self.com_pl = self.company_data5[0].com_size_pl()
+                self.com_bs = self.company_data5[1].com_size_bs()
+                statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                                bs_frame=self.common_bs_frame)
+                statement.create_statement()
+        if self.company_data6 is not None:
+            if self.com_year_entry.get() == self.company_data6[0].year:
+                self.com_pl = self.company_data6[0].com_size_pl()
+                self.com_bs = self.company_data6[1].com_size_bs()
+                statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                                bs_frame=self.common_bs_frame)
+                statement.create_statement()
 
     def trend_rfo(self):
-        trend_value1 = self.company_data1[0].rfo
-        trend_value2 = self.company_data2[0].rfo
-        trend_value3 = self.company_data3[0].rfo
-        trend_value4 = self.company_data4[0].rfo
-        trend_value5 = self.company_data5[0].rfo
-        trend_value6 = self.company_data6[0].rfo
-        y = [trend_value1, trend_value2, trend_value3, trend_value4, trend_value5, trend_value6]
-        year1 = self.company_data1[0].year
-        year2 = self.company_data2[0].year
-        year3 = self.company_data3[0].year
-        year4 = self.company_data4[0].year
-        year5 = self.company_data5[0].year
-        year6 = self.company_data6[0].year
-        x = [year1, year2, year3, year4, year5, year6]
-        trend_statement = TrendAnalysis(trend=y, year=x, table_frame=self.trend_table_frame,
+        self.x = []
+        self.y = []
+        if self.company_data1 is not None:
+            self.trend_value1 = self.company_data1[0].rfo
+        if self.company_data2 is not None:
+            self.trend_value2 = self.company_data2[0].rfo
+        if self.company_data3 is not None:
+            self.trend_value3 = self.company_data3[0].rfo
+        if self.company_data4 is not None:
+            self.trend_value4 = self.company_data4[0].rfo
+        if self.company_data5 is not None:
+            self.trend_value5 = self.company_data5[0].rfo
+        if self.company_data6 is not None:
+            self.trend_value6 = self.company_data6[0].rfo
+        trend_list = [self.trend_value1, self.trend_value2, self.trend_value3, self.trend_value4, self.trend_value5,
+                      self.trend_value6]
+        for trend in trend_list:
+            if trend is not None:
+                self.y.append(trend)
+        if self.company_data1 is not None:
+            self.year1 = self.company_data1[0].year
+        if self.company_data2 is not None:
+            self.year2 = self.company_data2[0].year
+        if self.company_data3 is not None:
+            self.year3 = self.company_data3[0].year
+        if self.company_data4 is not None:
+            self.year4 = self.company_data4[0].year
+        if self.company_data5 is not None:
+            self.year5 = self.company_data5[0].year
+        if self.company_data6 is not None:
+            self.year6 = self.company_data6[0].year
+        year_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+        for year in year_list:
+            if year is not None:
+                self.x.append(year)
+        trend_statement = TrendAnalysis(trend=self.y, year=self.x, table_frame=self.trend_table_frame,
                                         graph_frame=self.trend_graph_frame, title='Revenue From Operations')
         trend_statement.create_table()
         trend_statement.create_graph()
 
     def trend_gp(self):
-        trend_value1 = self.company_data1[0].gp
-        trend_value2 = self.company_data2[0].gp
-        trend_value3 = self.company_data3[0].gp
-        trend_value4 = self.company_data4[0].gp
-        trend_value5 = self.company_data5[0].gp
-        trend_value6 = self.company_data6[0].gp
-        y = [trend_value1, trend_value2, trend_value3, trend_value4, trend_value5, trend_value6]
-        year1 = self.company_data1[0].year
-        year2 = self.company_data2[0].year
-        year3 = self.company_data3[0].year
-        year4 = self.company_data4[0].year
-        year5 = self.company_data5[0].year
-        year6 = self.company_data6[0].year
-        x = [year1, year2, year3, year4, year5, year6]
-        trend_statement = TrendAnalysis(trend=y, year=x, table_frame=self.trend_table_frame,
-                                        graph_frame=self.trend_graph_frame, title='Gross Profit')
+        self.x = []
+        self.y = []
+        if self.company_data1 is not None:
+            self.trend_value1 = self.company_data1[0].gp
+        if self.company_data2 is not None:
+            self.trend_value2 = self.company_data2[0].gp
+        if self.company_data3 is not None:
+            self.trend_value3 = self.company_data3[0].gp
+        if self.company_data4 is not None:
+            self.trend_value4 = self.company_data4[0].gp
+        if self.company_data5 is not None:
+            self.trend_value5 = self.company_data5[0].gp
+        if self.company_data6 is not None:
+            self.trend_value6 = self.company_data6[0].gp
+        trend_list = [self.trend_value1, self.trend_value2, self.trend_value3, self.trend_value4, self.trend_value5,
+                      self.trend_value6]
+        for trend in trend_list:
+            if trend is not None:
+                self.y.append(trend)
+        if self.company_data1 is not None:
+            self.year1 = self.company_data1[0].year
+        if self.company_data2 is not None:
+            self.year2 = self.company_data2[0].year
+        if self.company_data3 is not None:
+            self.year3 = self.company_data3[0].year
+        if self.company_data4 is not None:
+            self.year4 = self.company_data4[0].year
+        if self.company_data5 is not None:
+            self.year5 = self.company_data5[0].year
+        if self.company_data6 is not None:
+            self.year6 = self.company_data6[0].year
+        year_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+        for year in year_list:
+            if year is not None:
+                self.x.append(year)
+        trend_statement = TrendAnalysis(trend=self.y, year=self.x, table_frame=self.trend_table_frame,
+                                        graph_frame=self.trend_graph_frame, title='Revenue From Operations')
         trend_statement.create_table()
         trend_statement.create_graph()
 
     def trend_op(self):
-        trend_value1 = self.company_data1[0].op
-        trend_value2 = self.company_data2[0].op
-        trend_value3 = self.company_data3[0].op
-        trend_value4 = self.company_data4[0].op
-        trend_value5 = self.company_data5[0].op
-        trend_value6 = self.company_data6[0].op
-        y = [trend_value1, trend_value2, trend_value3, trend_value4, trend_value5, trend_value6]
-        year1 = self.company_data1[0].year
-        year2 = self.company_data2[0].year
-        year3 = self.company_data3[0].year
-        year4 = self.company_data4[0].year
-        year5 = self.company_data5[0].year
-        year6 = self.company_data6[0].year
-        x = [year1, year2, year3, year4, year5, year6]
-        trend_statement = TrendAnalysis(trend=y, year=x, table_frame=self.trend_table_frame,
+        self.x = []
+        self.y = []
+        if self.company_data1 is not None:
+            self.trend_value1 = self.company_data1[0].op
+        if self.company_data2 is not None:
+            self.trend_value2 = self.company_data2[0].op
+        if self.company_data3 is not None:
+            self.trend_value3 = self.company_data3[0].op
+        if self.company_data4 is not None:
+            self.trend_value4 = self.company_data4[0].op
+        if self.company_data5 is not None:
+            self.trend_value5 = self.company_data5[0].op
+        if self.company_data6 is not None:
+            self.trend_value6 = self.company_data6[0].op
+        trend_list = [self.trend_value1, self.trend_value2, self.trend_value3, self.trend_value4, self.trend_value5,
+                      self.trend_value6]
+        for trend in trend_list:
+            if trend is not None:
+                self.y.append(trend)
+        if self.company_data1 is not None:
+            self.year1 = self.company_data1[0].year
+        if self.company_data2 is not None:
+            self.year2 = self.company_data2[0].year
+        if self.company_data3 is not None:
+            self.year3 = self.company_data3[0].year
+        if self.company_data4 is not None:
+            self.year4 = self.company_data4[0].year
+        if self.company_data5 is not None:
+            self.year5 = self.company_data5[0].year
+        if self.company_data6 is not None:
+            self.year6 = self.company_data6[0].year
+        year_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+        for year in year_list:
+            if year is not None:
+                self.x.append(year)
+        trend_statement = TrendAnalysis(trend=self.y, year=self.x, table_frame=self.trend_table_frame,
                                         graph_frame=self.trend_graph_frame, title='Operating Profit')
         trend_statement.create_table()
         trend_statement.create_graph()
 
     def trend_np(self):
-        trend_value1 = self.company_data1[0].pat
-        trend_value2 = self.company_data2[0].pat
-        trend_value3 = self.company_data3[0].pat
-        trend_value4 = self.company_data4[0].pat
-        trend_value5 = self.company_data5[0].pat
-        trend_value6 = self.company_data6[0].pat
-        y = [trend_value1, trend_value2, trend_value3, trend_value4, trend_value5, trend_value6]
-        year1 = self.company_data1[0].year
-        year2 = self.company_data2[0].year
-        year3 = self.company_data3[0].year
-        year4 = self.company_data4[0].year
-        year5 = self.company_data5[0].year
-        year6 = self.company_data6[0].year
-        x = [year1, year2, year3, year4, year5, year6]
-        trend_statement = TrendAnalysis(trend=y, year=x, table_frame=self.trend_table_frame,
+        self.x = []
+        self.y = []
+        if self.company_data1 is not None:
+            self.trend_value1 = self.company_data1[0].pat
+        if self.company_data2 is not None:
+            self.trend_value2 = self.company_data2[0].pat
+        if self.company_data3 is not None:
+            self.trend_value3 = self.company_data3[0].pat
+        if self.company_data4 is not None:
+            self.trend_value4 = self.company_data4[0].pat
+        if self.company_data5 is not None:
+            self.trend_value5 = self.company_data5[0].pat
+        if self.company_data6 is not None:
+            self.trend_value6 = self.company_data6[0].pat
+        trend_list = [self.trend_value1, self.trend_value2, self.trend_value3, self.trend_value4, self.trend_value5,
+                      self.trend_value6]
+        for trend in trend_list:
+            if trend is not None:
+                self.y.append(trend)
+        if self.company_data1 is not None:
+            self.year1 = self.company_data1[0].year
+        if self.company_data2 is not None:
+            self.year2 = self.company_data2[0].year
+        if self.company_data3 is not None:
+            self.year3 = self.company_data3[0].year
+        if self.company_data4 is not None:
+            self.year4 = self.company_data4[0].year
+        if self.company_data5 is not None:
+            self.year5 = self.company_data5[0].year
+        if self.company_data6 is not None:
+            self.year6 = self.company_data6[0].year
+        year_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+        for year in year_list:
+            if year is not None:
+                self.x.append(year)
+        trend_statement = TrendAnalysis(trend=self.y, year=self.x, table_frame=self.trend_table_frame,
                                         graph_frame=self.trend_graph_frame, title='Net Profit')
         trend_statement.create_table()
         trend_statement.create_graph()
 
     def trend_debt(self):
-        trend_value1 = self.company_data1[1].ltb
-        trend_value2 = self.company_data2[1].ltb
-        trend_value3 = self.company_data3[1].ltb
-        trend_value4 = self.company_data4[1].ltb
-        trend_value5 = self.company_data5[1].ltb
-        trend_value6 = self.company_data6[1].ltb
-        y = [trend_value1, trend_value2, trend_value3, trend_value4, trend_value5, trend_value6]
-        year1 = self.company_data1[0].year
-        year2 = self.company_data2[0].year
-        year3 = self.company_data3[0].year
-        year4 = self.company_data4[0].year
-        year5 = self.company_data5[0].year
-        year6 = self.company_data6[0].year
-        x = [year1, year2, year3, year4, year5, year6]
-        trend_statement = TrendAnalysis(trend=y, year=x, table_frame=self.trend_table_frame,
+        self.x = []
+        self.y = []
+        if self.company_data1 is not None:
+            self.trend_value1 = self.company_data1[1].ltb
+        if self.company_data2 is not None:
+            self.trend_value2 = self.company_data2[1].ltb
+        if self.company_data3 is not None:
+            self.trend_value3 = self.company_data3[1].ltb
+        if self.company_data4 is not None:
+            self.trend_value4 = self.company_data4[1].ltb
+        if self.company_data5 is not None:
+            self.trend_value5 = self.company_data5[1].ltb
+        if self.company_data6 is not None:
+            self.trend_value6 = self.company_data6[1].ltb
+        trend_list = [self.trend_value1, self.trend_value2, self.trend_value3, self.trend_value4, self.trend_value5,
+                      self.trend_value6]
+        for trend in trend_list:
+            if trend is not None:
+                self.y.append(trend)
+        if self.company_data1 is not None:
+            self.year1 = self.company_data1[0].year
+        if self.company_data2 is not None:
+            self.year2 = self.company_data2[0].year
+        if self.company_data3 is not None:
+            self.year3 = self.company_data3[0].year
+        if self.company_data4 is not None:
+            self.year4 = self.company_data4[0].year
+        if self.company_data5 is not None:
+            self.year5 = self.company_data5[0].year
+        if self.company_data6 is not None:
+            self.year6 = self.company_data6[0].year
+        year_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+        for year in year_list:
+            if year is not None:
+                self.x.append(year)
+        trend_statement = TrendAnalysis(trend=self.y, year=self.x, table_frame=self.trend_table_frame,
                                         graph_frame=self.trend_graph_frame, title='Debt')
         trend_statement.create_table()
         trend_statement.create_graph()
 
     def trend_ox(self):
-        trend_value1 = self.company_data1[0].oe
-        trend_value2 = self.company_data2[0].oe
-        trend_value3 = self.company_data3[0].oe
-        trend_value4 = self.company_data4[0].oe
-        trend_value5 = self.company_data5[0].oe
-        trend_value6 = self.company_data6[0].oe
-        y = [trend_value1, trend_value2, trend_value3, trend_value4, trend_value5, trend_value6]
-        year1 = self.company_data1[0].year
-        year2 = self.company_data2[0].year
-        year3 = self.company_data3[0].year
-        year4 = self.company_data4[0].year
-        year5 = self.company_data5[0].year
-        year6 = self.company_data6[0].year
-        x = [year1, year2, year3, year4, year5, year6]
-        trend_statement = TrendAnalysis(trend=y, year=x, table_frame=self.trend_table_frame,
+        self.x = []
+        self.y = []
+        if self.company_data1 is not None:
+            self.trend_value1 = self.company_data1[0].oe
+        if self.company_data2 is not None:
+            self.trend_value2 = self.company_data2[0].oe
+        if self.company_data3 is not None:
+            self.trend_value3 = self.company_data3[0].oe
+        if self.company_data4 is not None:
+            self.trend_value4 = self.company_data4[0].oe
+        if self.company_data5 is not None:
+            self.trend_value5 = self.company_data5[0].oe
+        if self.company_data6 is not None:
+            self.trend_value6 = self.company_data6[0].oe
+        trend_list = [self.trend_value1, self.trend_value2, self.trend_value3, self.trend_value4, self.trend_value5,
+                      self.trend_value6]
+        for trend in trend_list:
+            if trend is not None:
+                self.y.append(trend)
+        if self.company_data1 is not None:
+            self.year1 = self.company_data1[0].year
+        if self.company_data2 is not None:
+            self.year2 = self.company_data2[0].year
+        if self.company_data3 is not None:
+            self.year3 = self.company_data3[0].year
+        if self.company_data4 is not None:
+            self.year4 = self.company_data4[0].year
+        if self.company_data5 is not None:
+            self.year5 = self.company_data5[0].year
+        if self.company_data6 is not None:
+            self.year6 = self.company_data6[0].year
+        year_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+        for year in year_list:
+            if year is not None:
+                self.x.append(year)
+        trend_statement = TrendAnalysis(trend=self.y, year=self.x, table_frame=self.trend_table_frame,
                                         graph_frame=self.trend_graph_frame, title='Operating Expenses')
         trend_statement.create_table()
         trend_statement.create_graph()

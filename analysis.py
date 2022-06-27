@@ -48,43 +48,55 @@ class ComparativeStatement:
         self.current_bs6 = None
 
     def create_statement(self):
-        if self.base_year == self.company_data1[0].year:
-            self.base_pl1 = self.company_data1[0]
-            self.base_bs1 = self.company_data1[1]
-        if self.base_year == self.company_data2[0].year:
-            self.base_pl2 = self.company_data2[0]
-            self.base_bs2 = self.company_data2[1]
-        if self.base_year == self.company_data3[0].year:
-            self.base_pl3 = self.company_data3[0]
-            self.base_bs3 = self.company_data3[1]
-        if self.base_year == self.company_data4[0].year:
-            self.base_pl4 = self.company_data4[0]
-            self.base_bs4 = self.company_data4[1]
-        if self.base_year == self.company_data5[0].year:
-            self.base_pl5 = self.company_data5[0]
-            self.base_bs5 = self.company_data5[1]
-        if self.base_year == self.company_data6[0].year:
-            self.base_pl6 = self.company_data6[0]
-            self.base_bs6 = self.company_data6[1]
+        if self.company_data1 is not None:
+            if self.base_year == self.company_data1[0].year:
+                self.base_pl1 = self.company_data1[0]
+                self.base_bs1 = self.company_data1[1]
+        if self.company_data2 is not None:
+            if self.base_year == self.company_data2[0].year:
+                self.base_pl2 = self.company_data2[0]
+                self.base_bs2 = self.company_data2[1]
+        if self.company_data3 is not None:
+            if self.base_year == self.company_data3[0].year:
+                self.base_pl3 = self.company_data3[0]
+                self.base_bs3 = self.company_data3[1]
+        if self.company_data4 is not None:
+            if self.base_year == self.company_data4[0].year:
+                self.base_pl4 = self.company_data4[0]
+                self.base_bs4 = self.company_data4[1]
+        if self.company_data5 is not None:
+            if self.base_year == self.company_data5[0].year:
+                self.base_pl5 = self.company_data5[0]
+                self.base_bs5 = self.company_data5[1]
+        if self.company_data6 is not None:
+            if self.base_year == self.company_data6[0].year:
+                self.base_pl6 = self.company_data6[0]
+                self.base_bs6 = self.company_data6[1]
 
-        if self.current_year == self.company_data1[0].year:
-            self.current_pl1 = self.company_data1[0]
-            self.current_bs1 = self.company_data1[1]
-        if self.current_year == self.company_data2[0].year:
-            self.current_pl2 = self.company_data2[0]
-            self.current_bs2 = self.company_data2[1]
-        if self.current_year == self.company_data3[0].year:
-            self.current_pl3 = self.company_data3[0]
-            self.current_bs3 = self.company_data3[1]
-        if self.current_year == self.company_data4[0].year:
-            self.current_pl4 = self.company_data4[0]
-            self.current_bs4 = self.company_data4[1]
-        if self.current_year == self.company_data5[0].year:
-            self.current_pl5 = self.company_data5[0]
-            self.current_bs5 = self.company_data5[1]
-        if self.current_year == self.company_data6[0].year:
-            self.current_pl6 = self.company_data6[0]
-            self.current_bs6 = self.company_data6[1]
+        if self.company_data1 is not None:
+            if self.current_year == self.company_data1[0].year:
+                self.current_pl1 = self.company_data1[0]
+                self.current_bs1 = self.company_data1[1]
+        if self.company_data2 is not None:
+            if self.current_year == self.company_data2[0].year:
+                self.current_pl2 = self.company_data2[0]
+                self.current_bs2 = self.company_data2[1]
+        if self.company_data3 is not None:
+            if self.current_year == self.company_data3[0].year:
+                self.current_pl3 = self.company_data3[0]
+                self.current_bs3 = self.company_data3[1]
+        if self.company_data4 is not None:
+            if self.current_year == self.company_data4[0].year:
+                self.current_pl4 = self.company_data4[0]
+                self.current_bs4 = self.company_data4[1]
+        if self.company_data5 is not None:
+            if self.current_year == self.company_data5[0].year:
+                self.current_pl5 = self.company_data5[0]
+                self.current_bs5 = self.company_data5[1]
+        if self.company_data6 is not None:
+            if self.current_year == self.company_data6[0].year:
+                self.current_pl6 = self.company_data6[0]
+                self.current_bs6 = self.company_data6[1]
         base_pl_list = [self.base_pl1, self.base_pl2, self.base_pl3, self.base_pl4, self.base_pl5, self.base_pl6]
         for item in base_pl_list:
             if item is not None:
@@ -184,6 +196,7 @@ class TrendAnalysis:
         self.trend_table_frame = table_frame
         self.trend_graph_frame = graph_frame
         self.title = title
+        self.count = len(self.x)
 
     def create_table(self):
         trend_treeview = tkinter.ttk.Treeview(self.trend_table_frame, columns=('1', '2'))
@@ -193,7 +206,7 @@ class TrendAnalysis:
         trend_treeview.column('2', anchor=W, width=588)
         trend_treeview.heading('1', text='Year')
         trend_treeview.heading('2', text='Amount')
-        for j in range(6):
+        for j in range(self.count):
             trend_treeview.insert(parent='', index=END, values=(self.x[j], self.y[j]))
         trend_treeview.place(x=0, y=0)
 
