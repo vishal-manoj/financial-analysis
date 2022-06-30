@@ -1,5 +1,8 @@
 import tkinter.ttk
-from analysis import *
+from comparative_statement import *
+from common_size_statement import *
+from trend_analysis import *
+from ratio_analysis import *
 
 # A GUI based financial analysis software
 
@@ -35,18 +38,6 @@ class FinancialAnalysis:
         self.item = None
         self.delete_list = None
         self.no_of_years = None
-        self.trend_value1 = None
-        self.trend_value2 = None
-        self.trend_value3 = None
-        self.trend_value4 = None
-        self.trend_value5 = None
-        self.trend_value6 = None
-        self.year1 = None
-        self.year2 = None
-        self.year3 = None
-        self.year4 = None
-        self.year5 = None
-        self.year6 = None
         self.root = root
         self.root.state('zoomed')
         self.root.title('Financial Analysis Software')
@@ -561,250 +552,40 @@ class FinancialAnalysis:
                 statement.create_statement()
 
     def trend_rfo(self):
-        self.x = []
-        self.y = []
-        if self.company_data1 is not None:
-            self.trend_value1 = self.company_data1[0].rfo
-        if self.company_data2 is not None:
-            self.trend_value2 = self.company_data2[0].rfo
-        if self.company_data3 is not None:
-            self.trend_value3 = self.company_data3[0].rfo
-        if self.company_data4 is not None:
-            self.trend_value4 = self.company_data4[0].rfo
-        if self.company_data5 is not None:
-            self.trend_value5 = self.company_data5[0].rfo
-        if self.company_data6 is not None:
-            self.trend_value6 = self.company_data6[0].rfo
-        trend_list = [self.trend_value1, self.trend_value2, self.trend_value3, self.trend_value4, self.trend_value5,
-                      self.trend_value6]
-        for trend in trend_list:
-            if trend is not None:
-                self.y.append(trend)
-        if self.company_data1 is not None:
-            self.year1 = self.company_data1[0].year
-        if self.company_data2 is not None:
-            self.year2 = self.company_data2[0].year
-        if self.company_data3 is not None:
-            self.year3 = self.company_data3[0].year
-        if self.company_data4 is not None:
-            self.year4 = self.company_data4[0].year
-        if self.company_data5 is not None:
-            self.year5 = self.company_data5[0].year
-        if self.company_data6 is not None:
-            self.year6 = self.company_data6[0].year
-        year_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
-        for year in year_list:
-            if year is not None:
-                self.x.append(year)
-        trend_statement = TrendAnalysis(trend=self.y, year=self.x, table_frame=self.trend_table_frame,
-                                        graph_frame=self.trend_graph_frame, title='Revenue From Operations')
-        trend_statement.create_table()
-        trend_statement.create_graph()
+        statement = TrendAnalysis(data1=self.company_data1, data2=self.company_data2, data3=self.company_data3,
+                                  data4=self.company_data4, data5=self.company_data5, data6=self.company_data6,
+                                  table_frame=self.trend_table_frame, graph_frame=self.trend_graph_frame)
+        statement.trend_rfo()
 
     def trend_gp(self):
-        self.x = []
-        self.y = []
-        if self.company_data1 is not None:
-            self.trend_value1 = self.company_data1[0].gp
-        if self.company_data2 is not None:
-            self.trend_value2 = self.company_data2[0].gp
-        if self.company_data3 is not None:
-            self.trend_value3 = self.company_data3[0].gp
-        if self.company_data4 is not None:
-            self.trend_value4 = self.company_data4[0].gp
-        if self.company_data5 is not None:
-            self.trend_value5 = self.company_data5[0].gp
-        if self.company_data6 is not None:
-            self.trend_value6 = self.company_data6[0].gp
-        trend_list = [self.trend_value1, self.trend_value2, self.trend_value3, self.trend_value4, self.trend_value5,
-                      self.trend_value6]
-        for trend in trend_list:
-            if trend is not None:
-                self.y.append(trend)
-        if self.company_data1 is not None:
-            self.year1 = self.company_data1[0].year
-        if self.company_data2 is not None:
-            self.year2 = self.company_data2[0].year
-        if self.company_data3 is not None:
-            self.year3 = self.company_data3[0].year
-        if self.company_data4 is not None:
-            self.year4 = self.company_data4[0].year
-        if self.company_data5 is not None:
-            self.year5 = self.company_data5[0].year
-        if self.company_data6 is not None:
-            self.year6 = self.company_data6[0].year
-        year_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
-        for year in year_list:
-            if year is not None:
-                self.x.append(year)
-        trend_statement = TrendAnalysis(trend=self.y, year=self.x, table_frame=self.trend_table_frame,
-                                        graph_frame=self.trend_graph_frame, title='Revenue From Operations')
-        trend_statement.create_table()
-        trend_statement.create_graph()
+        statement = TrendAnalysis(data1=self.company_data1, data2=self.company_data2, data3=self.company_data3,
+                                  data4=self.company_data4, data5=self.company_data5, data6=self.company_data6,
+                                  table_frame=self.trend_table_frame, graph_frame=self.trend_graph_frame)
+        statement.trend_gp()
 
     def trend_op(self):
-        self.x = []
-        self.y = []
-        if self.company_data1 is not None:
-            self.trend_value1 = self.company_data1[0].op
-        if self.company_data2 is not None:
-            self.trend_value2 = self.company_data2[0].op
-        if self.company_data3 is not None:
-            self.trend_value3 = self.company_data3[0].op
-        if self.company_data4 is not None:
-            self.trend_value4 = self.company_data4[0].op
-        if self.company_data5 is not None:
-            self.trend_value5 = self.company_data5[0].op
-        if self.company_data6 is not None:
-            self.trend_value6 = self.company_data6[0].op
-        trend_list = [self.trend_value1, self.trend_value2, self.trend_value3, self.trend_value4, self.trend_value5,
-                      self.trend_value6]
-        for trend in trend_list:
-            if trend is not None:
-                self.y.append(trend)
-        if self.company_data1 is not None:
-            self.year1 = self.company_data1[0].year
-        if self.company_data2 is not None:
-            self.year2 = self.company_data2[0].year
-        if self.company_data3 is not None:
-            self.year3 = self.company_data3[0].year
-        if self.company_data4 is not None:
-            self.year4 = self.company_data4[0].year
-        if self.company_data5 is not None:
-            self.year5 = self.company_data5[0].year
-        if self.company_data6 is not None:
-            self.year6 = self.company_data6[0].year
-        year_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
-        for year in year_list:
-            if year is not None:
-                self.x.append(year)
-        trend_statement = TrendAnalysis(trend=self.y, year=self.x, table_frame=self.trend_table_frame,
-                                        graph_frame=self.trend_graph_frame, title='Operating Profit')
-        trend_statement.create_table()
-        trend_statement.create_graph()
+        statement = TrendAnalysis(data1=self.company_data1, data2=self.company_data2, data3=self.company_data3,
+                                  data4=self.company_data4, data5=self.company_data5, data6=self.company_data6,
+                                  table_frame=self.trend_table_frame, graph_frame=self.trend_graph_frame)
+        statement.trend_op()
 
     def trend_np(self):
-        self.x = []
-        self.y = []
-        if self.company_data1 is not None:
-            self.trend_value1 = self.company_data1[0].pat
-        if self.company_data2 is not None:
-            self.trend_value2 = self.company_data2[0].pat
-        if self.company_data3 is not None:
-            self.trend_value3 = self.company_data3[0].pat
-        if self.company_data4 is not None:
-            self.trend_value4 = self.company_data4[0].pat
-        if self.company_data5 is not None:
-            self.trend_value5 = self.company_data5[0].pat
-        if self.company_data6 is not None:
-            self.trend_value6 = self.company_data6[0].pat
-        trend_list = [self.trend_value1, self.trend_value2, self.trend_value3, self.trend_value4, self.trend_value5,
-                      self.trend_value6]
-        for trend in trend_list:
-            if trend is not None:
-                self.y.append(trend)
-        if self.company_data1 is not None:
-            self.year1 = self.company_data1[0].year
-        if self.company_data2 is not None:
-            self.year2 = self.company_data2[0].year
-        if self.company_data3 is not None:
-            self.year3 = self.company_data3[0].year
-        if self.company_data4 is not None:
-            self.year4 = self.company_data4[0].year
-        if self.company_data5 is not None:
-            self.year5 = self.company_data5[0].year
-        if self.company_data6 is not None:
-            self.year6 = self.company_data6[0].year
-        year_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
-        for year in year_list:
-            if year is not None:
-                self.x.append(year)
-        trend_statement = TrendAnalysis(trend=self.y, year=self.x, table_frame=self.trend_table_frame,
-                                        graph_frame=self.trend_graph_frame, title='Net Profit')
-        trend_statement.create_table()
-        trend_statement.create_graph()
+        statement = TrendAnalysis(data1=self.company_data1, data2=self.company_data2, data3=self.company_data3,
+                                  data4=self.company_data4, data5=self.company_data5, data6=self.company_data6,
+                                  table_frame=self.trend_table_frame, graph_frame=self.trend_graph_frame)
+        statement.trend_np()
 
     def trend_debt(self):
-        self.x = []
-        self.y = []
-        if self.company_data1 is not None:
-            self.trend_value1 = self.company_data1[1].ltb
-        if self.company_data2 is not None:
-            self.trend_value2 = self.company_data2[1].ltb
-        if self.company_data3 is not None:
-            self.trend_value3 = self.company_data3[1].ltb
-        if self.company_data4 is not None:
-            self.trend_value4 = self.company_data4[1].ltb
-        if self.company_data5 is not None:
-            self.trend_value5 = self.company_data5[1].ltb
-        if self.company_data6 is not None:
-            self.trend_value6 = self.company_data6[1].ltb
-        trend_list = [self.trend_value1, self.trend_value2, self.trend_value3, self.trend_value4, self.trend_value5,
-                      self.trend_value6]
-        for trend in trend_list:
-            if trend is not None:
-                self.y.append(trend)
-        if self.company_data1 is not None:
-            self.year1 = self.company_data1[0].year
-        if self.company_data2 is not None:
-            self.year2 = self.company_data2[0].year
-        if self.company_data3 is not None:
-            self.year3 = self.company_data3[0].year
-        if self.company_data4 is not None:
-            self.year4 = self.company_data4[0].year
-        if self.company_data5 is not None:
-            self.year5 = self.company_data5[0].year
-        if self.company_data6 is not None:
-            self.year6 = self.company_data6[0].year
-        year_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
-        for year in year_list:
-            if year is not None:
-                self.x.append(year)
-        trend_statement = TrendAnalysis(trend=self.y, year=self.x, table_frame=self.trend_table_frame,
-                                        graph_frame=self.trend_graph_frame, title='Debt')
-        trend_statement.create_table()
-        trend_statement.create_graph()
+        statement = TrendAnalysis(data1=self.company_data1, data2=self.company_data2, data3=self.company_data3,
+                                  data4=self.company_data4, data5=self.company_data5, data6=self.company_data6,
+                                  table_frame=self.trend_table_frame, graph_frame=self.trend_graph_frame)
+        statement.trend_debt()
 
     def trend_ox(self):
-        self.x = []
-        self.y = []
-        if self.company_data1 is not None:
-            self.trend_value1 = self.company_data1[0].oe
-        if self.company_data2 is not None:
-            self.trend_value2 = self.company_data2[0].oe
-        if self.company_data3 is not None:
-            self.trend_value3 = self.company_data3[0].oe
-        if self.company_data4 is not None:
-            self.trend_value4 = self.company_data4[0].oe
-        if self.company_data5 is not None:
-            self.trend_value5 = self.company_data5[0].oe
-        if self.company_data6 is not None:
-            self.trend_value6 = self.company_data6[0].oe
-        trend_list = [self.trend_value1, self.trend_value2, self.trend_value3, self.trend_value4, self.trend_value5,
-                      self.trend_value6]
-        for trend in trend_list:
-            if trend is not None:
-                self.y.append(trend)
-        if self.company_data1 is not None:
-            self.year1 = self.company_data1[0].year
-        if self.company_data2 is not None:
-            self.year2 = self.company_data2[0].year
-        if self.company_data3 is not None:
-            self.year3 = self.company_data3[0].year
-        if self.company_data4 is not None:
-            self.year4 = self.company_data4[0].year
-        if self.company_data5 is not None:
-            self.year5 = self.company_data5[0].year
-        if self.company_data6 is not None:
-            self.year6 = self.company_data6[0].year
-        year_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
-        for year in year_list:
-            if year is not None:
-                self.x.append(year)
-        trend_statement = TrendAnalysis(trend=self.y, year=self.x, table_frame=self.trend_table_frame,
-                                        graph_frame=self.trend_graph_frame, title='Operating Expenses')
-        trend_statement.create_table()
-        trend_statement.create_graph()
+        statement = TrendAnalysis(data1=self.company_data1, data2=self.company_data2, data3=self.company_data3,
+                                  data4=self.company_data4, data5=self.company_data5, data6=self.company_data6,
+                                  table_frame=self.trend_table_frame, graph_frame=self.trend_graph_frame)
+        statement.trend_ox()
 
     def ratio(self):
         statement = RatioAnalysis(data1=self.company_data1, data2=self.company_data2, data3=self.company_data3,
