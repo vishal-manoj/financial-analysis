@@ -38,12 +38,13 @@ class FinancialAnalysis:
         self.item = None
         self.delete_list = None
         self.no_of_years = None
+        self.selected_ratio = None
         self.root = root
         self.root.state('zoomed')
         self.root.title('Financial Analysis Software')
         name_label = Label(self.root, text='Financial Analysis', bg='orange', relief=GROOVE, font=10, height=3,
                            width=140)
-        name_label.grid(row=0, column=0)
+        name_label.place(x=0, y=0)
 
         # Main window and Tabs
         style = tkinter.ttk.Style()
@@ -52,18 +53,18 @@ class FinancialAnalysis:
         style.configure('TNotebook.Tab', background='orange')
         style.map('TNotebook', background=[('selected', 'orange')])
         tabs = tkinter.ttk.Notebook()
-        tabs.grid(row=1, column=0)
-        data_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1515)
-        comparative_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1515)
-        common_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1515)
-        ratio_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1515)
-        trend_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1515)
+        tabs.place(x=0, y=75)
+        data_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1530)
+        comparative_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1530)
+        common_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1530)
+        ratio_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1530)
+        trend_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1530)
         tabs.add(data_frame, text='Data')
         tabs.add(comparative_frame, text='Comparative Statement')
         tabs.add(common_frame, text='Common size Statement')
         tabs.add(ratio_frame, text='Ratios')
         tabs.add(trend_frame, text='Trend Analysis')
-        company_frame = Frame(data_frame, highlightbackground='orange', highlightthickness=2, height=50, width=1510)
+        company_frame = Frame(data_frame, highlightbackground='orange', highlightthickness=2, height=50, width=1525)
         company_frame.place(x=0, y=0)
         company_label = Label(company_frame, text='Enter Company name :')
         company_label.place(x=10, y=10)
@@ -128,7 +129,7 @@ class FinancialAnalysis:
         self.tax_entry.place(x=320, y=330)
 
         # Balance sheet data
-        self.b_s_frame = Frame(data_frame, highlightbackground='orange', highlightthickness=2, height=550, width=750)
+        self.b_s_frame = Frame(data_frame, highlightbackground='orange', highlightthickness=2, height=550, width=765)
         self.b_s_frame.place(x=760, y=50)
         b_s_label = Label(self.b_s_frame, text='Balance Sheet Data', bg='orange', width=108)
         b_s_label.place(x=0, y=0)
@@ -204,7 +205,7 @@ class FinancialAnalysis:
         # Data button frame and buttons
         data_button_frame = Frame(data_frame, highlightbackground='orange', highlightthickness=3, height=75, width=760)
         data_button_frame.place(x=0, y=600)
-        year_count_frame = Frame(data_frame, highlightbackground='orange', highlightthickness=3, height=75, width=750)
+        year_count_frame = Frame(data_frame, highlightbackground='orange', highlightthickness=3, height=75, width=765)
         year_count_frame.place(x=760, y=600)
         self.upload_button = Button(data_button_frame, text='Upload Data', height=2, width=30, state=DISABLED,
                                     command=self.upload_data)
@@ -230,7 +231,7 @@ class FinancialAnalysis:
                                width=110)
         comp_p_l_label.place(x=0, y=1)
         self.comp_bs_frame = Frame(comparative_frame, highlightbackground='orange', highlightthickness=3, height=600,
-                                   width=755)
+                                   width=770)
         self.comp_bs_frame.place(x=755, y=75)
         comp_bs_label = Label(self.comp_bs_frame, text='Comparative BalanceSheet', bg='orange', height=1, width=110)
         comp_bs_label.place(x=0, y=1)
@@ -255,7 +256,7 @@ class FinancialAnalysis:
                                  height=1, width=110)
         common_p_l_label.place(x=0, y=1)
         self.common_bs_frame = Frame(common_frame, highlightbackground='orange', highlightthickness=3, height=600,
-                                     width=755)
+                                     width=770)
         self.common_bs_frame.place(x=755, y=75)
         common_bs_label = Label(self.common_bs_frame, text='Common Size BalanceSheet Statement', bg='orange', height=1,
                                 width=110)
@@ -271,46 +272,33 @@ class FinancialAnalysis:
         self.ratio_option_frame = Frame(ratio_frame, bg='orange', highlightbackground='orange', highlightthickness=3,
                                         width=325, height=675)
         self.ratio_option_frame.place(x=0, y=0)
-        self.liquidity_ratio = StringVar()
-        self.liquidity_ratio.set('Liquidity Ratios')
-        liquidity_list = ['Current Ratio', 'Quick Ratio', 'Cash Ratio']
-        liquidity_menu = OptionMenu(self.ratio_option_frame, self.liquidity_ratio, *liquidity_list)
-        liquidity_menu.configure(width=46, height=3)
-        liquidity_menu.place(x=0, y=0)
-
-        self.solvency_ratio = StringVar()
-        self.solvency_ratio.set('Solvency Ratios')
-        solvency_list = ['Debt to Equity Ratio', 'Debt to Capital Employed Ratio', 'Proprietary Ratio',
-                         'Interest Coverage Ratio']
-        solvency_menu = OptionMenu(self.ratio_option_frame, self.solvency_ratio, *solvency_list)
-        solvency_menu.configure(width=46, height=3)
-        solvency_menu.place(x=0, y=98)
-
-        self.profitability_ratio = StringVar()
-        self.profitability_ratio.set('Profitability Ratios')
-        profitability_list = ['Gross Profit Ratio', 'Operating Ratio', 'Operating Profit Ratio', 'Net Profit Ratio',
-                              'Return on Investment Ratio', 'Return on Networth Ratio', 'Earnings Per Share',
-                              'Book Value Per Share', 'Dividend Payout Ratio', 'Price Earning Ratio']
-        profitability_menu = OptionMenu(self.ratio_option_frame, self.profitability_ratio, *profitability_list)
-        profitability_menu.configure(width=46, height=3)
-        profitability_menu.place(x=0, y=196)
-
-        self.turnover_ratio = StringVar()
-        self.turnover_ratio.set('Turnover Ratios')
-        turnover_list = ['Inventory Turnover Ratio', 'Debtors Turnover Ratio', 'Creditors Turnover Ratio',
-                         'Capital Turnover Ratio', 'Fixed Asset Turnover Ratio', 'Working Capital Turnover Ratio']
-        turnover_menu = OptionMenu(self.ratio_option_frame, self.turnover_ratio, *turnover_list)
-        turnover_menu.configure(width=46, height=3)
-        turnover_menu.place(x=0, y=294)
         self.ratio_button = Button(self.ratio_option_frame, text='Submit', width=44, height=3, command=self.ratio)
-        self.ratio_button.place(x=0, y=490)
+        self.ratio_button.place(x=0, y=600)
 
-        self.ratio_table_frame = Frame(ratio_frame, highlightbackground='orange', highlightthickness=3, width=1185,
+        self.ratio_table_frame = Frame(ratio_frame, highlightbackground='orange', highlightthickness=3, width=1200,
                                        height=320)
         self.ratio_table_frame.place(x=325, y=0)
-        self.ratio_graph_frame = Frame(ratio_frame, highlightbackground='orange', highlightthickness=3, width=1185,
+        self.ratio_graph_frame = Frame(ratio_frame, highlightbackground='orange', highlightthickness=3, width=1200,
                                        height=350)
         self.ratio_graph_frame.place(x=325, y=325)
+
+        # Ratio listbox and its components
+        ratio_label = Label(self.ratio_option_frame, text='Ratios List ', width=15, bd=2)
+        ratio_label.place(x=90, y=9)
+        self.ratio_list_box = Listbox(self.ratio_option_frame, height=25, width=52)
+        self.ratio_list_box.place(x=0, y=30)
+        ratio_list = ['Current Ratio', 'Quick Ratio', 'Cash Ratio', 'Debt to Equity Ratio',
+                      'Debt to Equity Ratio', 'Debt to Capital Employed Ratio', 'Proprietary Ratio',
+                      'Interest Coverage Ratio'
+                      'Gross Profit Ratio', 'Operating Ratio', 'Operating Profit Ratio', 'Net Profit Ratio',
+                      'Return on Investment Ratio', 'Return on Networth Ratio', 'Earnings Per Share',
+                      'Book Value Per Share', 'Dividend Payout Ratio', 'Price Earning Ratio',
+                      'Inventory Turnover Ratio', 'Debtors Turnover Ratio', 'Creditors Turnover Ratio',
+                      'Capital Turnover Ratio', 'Fixed Asset Turnover Ratio', 'Working Capital Turnover Ratio'
+                      ]
+
+        for item in ratio_list:
+            self.ratio_list_box.insert(END, item)
 
         # Trend frame and components
         trend_button_frame = Frame(trend_frame, bg='orange', highlightbackground='orange', highlightthickness=3,
@@ -332,10 +320,10 @@ class FinancialAnalysis:
         self.ox_button = Button(trend_button_frame, text='Operating Expenses', width=44, height=3,
                                 command=self.trend_ox)
         self.ox_button.place(x=0, y=490)
-        self.trend_table_frame = Frame(trend_frame, highlightbackground='orange', highlightthickness=3, width=1185,
+        self.trend_table_frame = Frame(trend_frame, highlightbackground='orange', highlightthickness=3, width=1200,
                                        height=320)
         self.trend_table_frame.place(x=325, y=0)
-        self.trend_graph_frame = Frame(trend_frame, highlightbackground='orange', highlightthickness=3, width=1185,
+        self.trend_graph_frame = Frame(trend_frame, highlightbackground='orange', highlightthickness=3, width=1200,
                                        height=350)
         self.trend_graph_frame.place(x=325, y=325)
 
@@ -588,11 +576,11 @@ class FinancialAnalysis:
         statement.trend_ox()
 
     def ratio(self):
+        self.selected_ratio = self.ratio_list_box.curselection()
         statement = RatioAnalysis(data1=self.company_data1, data2=self.company_data2, data3=self.company_data3,
                                   data4=self.company_data4, data5=self.company_data5, data6=self.company_data6,
                                   table_frame=self.ratio_table_frame, graph_frame=self.ratio_graph_frame,
-                                  liquidity_ratio=self.liquidity_ratio, solvency_ratio=self.solvency_ratio,
-                                  profitability_ratio=self.profitability_ratio, turnover_ratio=self.turnover_ratio)
+                                  selected_ratio=self.selected_ratio)
         statement.create_ratio()
 
 

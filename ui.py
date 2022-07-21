@@ -9,6 +9,8 @@ from ratio_analysis import *
 
 class FinancialAnalysis:
     def __init__(self, root):
+        self.x = None
+        self.y = None
         self.com_pl = None
         self.com_bs = None
         self.base_year = None
@@ -35,11 +37,12 @@ class FinancialAnalysis:
         self.clear_list = None
         self.item = None
         self.delete_list = None
+        self.no_of_years = None
         self.root = root
         self.root.state('zoomed')
         self.root.title('Financial Analysis Software')
         name_label = Label(self.root, text='Financial Analysis', bg='orange', relief=GROOVE, font=10, height=3,
-                           width=140)
+                           width=170)
         name_label.grid(row=0, column=0)
 
         # Main window and Tabs
@@ -64,11 +67,11 @@ class FinancialAnalysis:
         company_frame.place(x=0, y=0)
         company_label = Label(company_frame, text='Enter Company name :')
         company_label.place(x=10, y=10)
-        self.company_entry = Entry(company_frame, width=50)
+        self.company_entry = Entry(company_frame, width=50, state=DISABLED)
         self.company_entry.place(x=150, y=12)
         year_label = Label(company_frame, text='Year :')
         year_label.place(x=1095, y=10)
-        self.year_entry = Entry(company_frame, width=50)
+        self.year_entry = Entry(company_frame, width=50, state=DISABLED)
         self.year_entry.place(x=1145, y=10)
         # Treeview row height settings
         s = tkinter.ttk.Style()
@@ -81,47 +84,47 @@ class FinancialAnalysis:
         p_l_label.place(x=0, y=0)
         rfo_label = Label(self.p_l_frame, text='Revenue from Operations :')
         rfo_label.place(x=5, y=30)
-        self.rfo_entry = Entry(self.p_l_frame, width=40)
+        self.rfo_entry = Entry(self.p_l_frame, width=40, state=DISABLED)
         self.rfo_entry.place(x=320, y=30)
         oi_label = Label(self.p_l_frame, text='Other Income :')
         oi_label.place(x=5, y=60)
-        self.oi_entry = Entry(self.p_l_frame, width=40)
+        self.oi_entry = Entry(self.p_l_frame, width=40, state=DISABLED)
         self.oi_entry.place(x=320, y=60)
         com_label = Label(self.p_l_frame, text='Cost of Materials :')
         com_label.place(x=5, y=90)
-        self.com_entry = Entry(self.p_l_frame, width=40)
+        self.com_entry = Entry(self.p_l_frame, width=40, state=DISABLED)
         self.com_entry.place(x=320, y=90)
         purchase_label = Label(self.p_l_frame, text='Purchases :')
         purchase_label.place(x=5, y=120)
-        self.purchase_entry = Entry(self.p_l_frame, width=40)
+        self.purchase_entry = Entry(self.p_l_frame, width=40, state=DISABLED)
         self.purchase_entry.place(x=320, y=120)
         cii_label = Label(self.p_l_frame, text='Change in Inventory :')
         cii_label.place(x=5, y=150)
-        self.cii_entry = Entry(self.p_l_frame, width=40)
+        self.cii_entry = Entry(self.p_l_frame, width=40, state=DISABLED)
         self.cii_entry.place(x=320, y=150)
         ebe_label = Label(self.p_l_frame, text='Employee Benefit Expenses :')
         ebe_label.place(x=5, y=180)
-        self.ebe_entry = Entry(self.p_l_frame, width=40)
+        self.ebe_entry = Entry(self.p_l_frame, width=40, state=DISABLED)
         self.ebe_entry.place(x=320, y=180)
         fc_label = Label(self.p_l_frame, text='Finance Cost :')
         fc_label.place(x=5, y=210)
-        self.fc_entry = Entry(self.p_l_frame, width=40)
+        self.fc_entry = Entry(self.p_l_frame, width=40, state=DISABLED)
         self.fc_entry.place(x=320, y=210)
         dna_label = Label(self.p_l_frame, text='Depreciation and Amortization :')
         dna_label.place(x=5, y=240)
-        self.dna_entry = Entry(self.p_l_frame, width=40)
+        self.dna_entry = Entry(self.p_l_frame, width=40, state=DISABLED)
         self.dna_entry.place(x=320, y=240)
         ode_label = Label(self.p_l_frame, text='Other Direct expenses :')
         ode_label.place(x=5, y=270)
-        self.ode_entry = Entry(self.p_l_frame, width=40)
+        self.ode_entry = Entry(self.p_l_frame, width=40, state=DISABLED)
         self.ode_entry.place(x=320, y=270)
         oie_label = Label(self.p_l_frame, text='Other Indirect Expenses :')
         oie_label.place(x=5, y=300)
-        self.oie_entry = Entry(self.p_l_frame, width=40)
+        self.oie_entry = Entry(self.p_l_frame, width=40, state=DISABLED)
         self.oie_entry.place(x=320, y=300)
         tax_label = Label(self.p_l_frame, text='Tax :')
         tax_label.place(x=5, y=330)
-        self.tax_entry = Entry(self.p_l_frame, width=40)
+        self.tax_entry = Entry(self.p_l_frame, width=40, state=DISABLED)
         self.tax_entry.place(x=320, y=330)
 
         # Balance sheet data
@@ -131,80 +134,91 @@ class FinancialAnalysis:
         b_s_label.place(x=0, y=0)
         share_fund_label = Label(self.b_s_frame, text='Shareholders Fund :')
         share_fund_label.place(x=0, y=30)
-        self.share_fund_entry = Entry(self.b_s_frame, width=40)
+        self.share_fund_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.share_fund_entry.place(x=320, y=30)
         ps_label = Label(self.b_s_frame, text='Preference Share :')
         ps_label.place(x=0, y=60)
-        self.ps_entry = Entry(self.b_s_frame, width=40)
+        self.ps_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.ps_entry.place(x=320, y=60)
         ltb_label = Label(self.b_s_frame, text='Long Term Borrowings :')
         ltb_label.place(x=0, y=90)
-        self.ltb_entry = Entry(self.b_s_frame, width=40)
+        self.ltb_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.ltb_entry.place(x=320, y=90)
         oll_label = Label(self.b_s_frame, text='Other Long Term Liabilities :')
         oll_label.place(x=0, y=120)
-        self.oll_entry = Entry(self.b_s_frame, width=40)
+        self.oll_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.oll_entry.place(x=320, y=120)
         tp_label = Label(self.b_s_frame, text='Trade Payable :')
         tp_label.place(x=0, y=150)
-        self.tp_entry = Entry(self.b_s_frame, width=40)
+        self.tp_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.tp_entry.place(x=320, y=150)
         ocl_label = Label(self.b_s_frame, text='Other Current Liabilities :')
         ocl_label.place(x=0, y=180)
-        self.ocl_entry = Entry(self.b_s_frame, width=40)
+        self.ocl_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.ocl_entry.place(x=320, y=180)
         fa_label = Label(self.b_s_frame, text='Fixed Assets :')
         fa_label.place(x=0, y=210)
-        self.fa_entry = Entry(self.b_s_frame, width=40)
+        self.fa_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.fa_entry.place(x=320, y=210)
         lti_label = Label(self.b_s_frame, text='Long Term Investments :')
         lti_label.place(x=0, y=240)
-        self.lti_entry = Entry(self.b_s_frame, width=40)
+        self.lti_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.lti_entry.place(x=320, y=240)
         ltl_label = Label(self.b_s_frame, text='Long Term Loans (Asset) :')
         ltl_label.place(x=0, y=270)
-        self.ltl_entry = Entry(self.b_s_frame, width=40)
+        self.ltl_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.ltl_entry.place(x=320, y=270)
         ola_label = Label(self.b_s_frame, text='Other Long Term Assets :')
         ola_label.place(x=0, y=300)
-        self.ola_entry = Entry(self.b_s_frame, width=40)
+        self.ola_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.ola_entry.place(x=320, y=300)
         inv_label = Label(self.b_s_frame, text='Inventory :')
         inv_label.place(x=0, y=330)
-        self.inv_entry = Entry(self.b_s_frame, width=40)
+        self.inv_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.inv_entry.place(x=320, y=330)
         tr_label = Label(self.b_s_frame, text='Trade Receivables :')
         tr_label.place(x=0, y=360)
-        self.tr_entry = Entry(self.b_s_frame, width=40)
+        self.tr_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.tr_entry.place(x=320, y=360)
         cac_label = Label(self.b_s_frame, text='Cash and Cash Equivalents :')
         cac_label.place(x=0, y=390)
-        self.cac_entry = Entry(self.b_s_frame, width=40)
+        self.cac_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.cac_entry.place(x=320, y=390)
         oca_label = Label(self.b_s_frame, text='Other Current Assets :')
         oca_label.place(x=0, y=420)
-        self.oca_entry = Entry(self.b_s_frame, width=40)
+        self.oca_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.oca_entry.place(x=320, y=420)
         nes_label = Label(self.b_s_frame, text='Number of equity shares :')
         nes_label.place(x=0, y=450)
-        self.nes_entry = Entry(self.b_s_frame, width=40)
+        self.nes_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.nes_entry.place(x=320, y=450)
         mps_label = Label(self.b_s_frame, text='Market Price per Share :')
         mps_label.place(x=0, y=480)
-        self.mps_entry = Entry(self.b_s_frame, width=40)
+        self.mps_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.mps_entry.place(x=320, y=480)
         dps_label = Label(self.b_s_frame, text='Dividend per Share :')
         dps_label.place(x=0, y=510)
-        self.dps_entry = Entry(self.b_s_frame, width=40)
+        self.dps_entry = Entry(self.b_s_frame, width=40, state=DISABLED)
         self.dps_entry.place(x=320, y=510)
 
         # Data button frame and buttons
-        data_button_frame = Frame(data_frame, highlightbackground='orange', highlightthickness=3, height=75, width=1510)
+        data_button_frame = Frame(data_frame, highlightbackground='orange', highlightthickness=3, height=75, width=760)
         data_button_frame.place(x=0, y=600)
-        self.upload_button = Button(data_button_frame, text='Upload Data', height=2, width=30, command=self.upload_data)
-        self.upload_button.place(x=260, y=15)
-        self.clear_button = Button(data_button_frame, text='Clear Data', height=2, width=30, command=self.clear_data)
-        self.clear_button.place(x=1000, y=15)
+        year_count_frame = Frame(data_frame, highlightbackground='orange', highlightthickness=3, height=75, width=750)
+        year_count_frame.place(x=760, y=600)
+        self.upload_button = Button(data_button_frame, text='Upload Data', height=2, width=30, state=DISABLED,
+                                    command=self.upload_data)
+        self.upload_button.place(x=10, y=15)
+        self.clear_button = Button(data_button_frame, text='Clear Data', height=2, width=30, state=DISABLED,
+                                   command=self.clear_data)
+        self.clear_button.place(x=450, y=15)
+        year_count_label = Label(year_count_frame, text='Number of Years: ')
+        year_count_label.place(x=0, y=20)
+        self.year_count = StringVar()
+        self.year_count_spin_box = Spinbox(year_count_frame, from_=2, to=6, textvariable=self.year_count, wrap=True)
+        self.year_count_spin_box.place(x=110, y=22)
+        self.submit_spin_button = Button(year_count_frame, text='Submit', height=2, width=30, command=self.count_year)
+        self.submit_spin_button.place(x=500, y=15)
 
         # Comparative statement, frames and radio buttons
         comparative_label = Label(comparative_frame, text='Comparative Statement', bg='orange', height=1, width=220)
@@ -248,21 +262,10 @@ class FinancialAnalysis:
         common_bs_label.place(x=0, y=1)
         self.com_submit_b = Button(common_frame, text='Submit', width=30, height=2, command=self.com_size_statement)
         self.com_submit_b.place(x=1250, y=26)
-
-        self.common_var = IntVar()
-        self.common_var1 = Radiobutton(common_frame, text='Year 1', font=(None, 10), variable=self.common_var, value=1)
-        self.common_var1.place(x=0, y=35)
-        self.common_var1.select()
-        self.common_var2 = Radiobutton(common_frame, text='Year 2', font=(None, 10), variable=self.common_var, value=2)
-        self.common_var2.place(x=120, y=35)
-        self.common_var3 = Radiobutton(common_frame, text='Year 3', font=(None, 10), variable=self.common_var, value=3)
-        self.common_var3.place(x=240, y=35)
-        self.common_var4 = Radiobutton(common_frame, text='Year 4', font=(None, 10), variable=self.common_var, value=4)
-        self.common_var4.place(x=360, y=35)
-        self.common_var5 = Radiobutton(common_frame, text='Year 5', font=(None, 10), variable=self.common_var, value=5)
-        self.common_var5.place(x=480, y=35)
-        self.common_var6 = Radiobutton(common_frame, text='Year 6', font=(None, 10), variable=self.common_var, value=6)
-        self.common_var6.place(x=600, y=35)
+        com_year_label = Label(common_frame, text='Enter Year: ')
+        com_year_label.place(x=0, y=35)
+        self.com_year_entry = Entry(common_frame, width=40)
+        self.com_year_entry.place(x=100, y=35)
 
         # Ratio frames and components
         self.ratio_option_frame = Frame(ratio_frame, bg='orange', highlightbackground='orange', highlightthickness=3,
@@ -336,6 +339,18 @@ class FinancialAnalysis:
                                        height=350)
         self.trend_graph_frame.place(x=325, y=325)
 
+    def count_year(self):
+        self.no_of_years = int(self.year_count_spin_box.get())
+        entry_list = [self.company_entry, self.year_entry, self.rfo_entry, self.oi_entry, self.com_entry,
+                      self.purchase_entry, self.cii_entry, self.ebe_entry, self.fc_entry, self.dna_entry,
+                      self.ode_entry, self.oie_entry, self.tax_entry, self.share_fund_entry, self.ps_entry,
+                      self.ltb_entry, self.oll_entry, self.tp_entry, self.ocl_entry, self.fa_entry,
+                      self.lti_entry, self.ltl_entry, self.ola_entry, self.inv_entry, self.tr_entry,
+                      self.cac_entry, self.oca_entry, self.nes_entry, self.dps_entry, self.mps_entry,
+                      self.upload_button, self.clear_button]
+        for entry in entry_list:
+            entry['state'] = NORMAL
+
     def upload_data(self):
         self.delete_list = [self.company_entry, self.year_entry, self.rfo_entry, self.oi_entry, self.com_entry,
                             self.purchase_entry, self.cii_entry, self.ebe_entry, self.fc_entry, self.dna_entry,
@@ -343,7 +358,7 @@ class FinancialAnalysis:
                             self.ltb_entry, self.oll_entry, self.tp_entry, self.ocl_entry, self.fa_entry,
                             self.lti_entry, self.ltl_entry, self.ola_entry, self.inv_entry, self.tr_entry,
                             self.cac_entry, self.oca_entry, self.nes_entry, self.dps_entry, self.mps_entry]
-        if self.count == 1:
+        if self.count == 1 and self.count <= self.no_of_years:
             self.p_l1 = Pl(name=self.company_entry.get(), year=self.year_entry.get(),
                            rfo=int(self.rfo_entry.get()), oi=int(self.oi_entry.get()), com=int(self.com_entry.get()),
                            purchases=int(self.purchase_entry.get()), cii=int(self.cii_entry.get()),
@@ -365,7 +380,7 @@ class FinancialAnalysis:
             for self.item in self.delete_list:
                 self.item.delete(0, END)
 
-        if self.count == 2:
+        if self.count == 2 and self.count <= self.no_of_years:
             self.p_l2 = Pl(name=self.company_entry.get(), year=self.year_entry.get(),
                            rfo=int(self.rfo_entry.get()), oi=int(self.oi_entry.get()), com=int(self.com_entry.get()),
                            purchases=int(self.purchase_entry.get()), cii=int(self.cii_entry.get()),
@@ -387,7 +402,7 @@ class FinancialAnalysis:
             for self.item in self.delete_list:
                 self.item.delete(0, END)
 
-        if self.count == 3:
+        if self.count == 3 and self.count <= self.no_of_years:
             self.p_l3 = Pl(name=self.company_entry.get(), year=self.year_entry.get(),
                            rfo=int(self.rfo_entry.get()), oi=int(self.oi_entry.get()), com=int(self.com_entry.get()),
                            purchases=int(self.purchase_entry.get()), cii=int(self.cii_entry.get()),
@@ -409,7 +424,7 @@ class FinancialAnalysis:
             for self.item in self.delete_list:
                 self.item.delete(0, END)
 
-        if self.count == 4:
+        if self.count == 4 and self.count <= self.no_of_years:
             self.p_l4 = Pl(name=self.company_entry.get(), year=self.year_entry.get(),
                            rfo=int(self.rfo_entry.get()), oi=int(self.oi_entry.get()), com=int(self.com_entry.get()),
                            purchases=int(self.purchase_entry.get()), cii=int(self.cii_entry.get()),
@@ -431,7 +446,7 @@ class FinancialAnalysis:
             for self.item in self.delete_list:
                 self.item.delete(0, END)
 
-        if self.count == 5:
+        if self.count == 5 and self.count <= self.no_of_years:
             self.p_l5 = Pl(name=self.company_entry.get(), year=self.year_entry.get(),
                            rfo=int(self.rfo_entry.get()), oi=int(self.oi_entry.get()), com=int(self.com_entry.get()),
                            purchases=int(self.purchase_entry.get()), cii=int(self.cii_entry.get()),
@@ -453,7 +468,7 @@ class FinancialAnalysis:
             for self.item in self.delete_list:
                 self.item.delete(0, END)
 
-        if self.count == 6:
+        if self.count == 6 and self.count <= self.no_of_years:
             self.p_l6 = Pl(name=self.company_entry.get(), year=self.year_entry.get(),
                            rfo=int(self.rfo_entry.get()), oi=int(self.oi_entry.get()), com=int(self.com_entry.get()),
                            purchases=int(self.purchase_entry.get()), cii=int(self.cii_entry.get()),
@@ -493,416 +508,780 @@ class FinancialAnalysis:
         statement.create_statement()
 
     def com_size_statement(self):
-        if self.common_var.get() == 1:
-            self.com_pl = self.company_data1[0].com_size_pl()
-            self.com_bs = self.company_data1[1].com_size_bs()
-            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
-                                            bs_frame=self.common_bs_frame)
-            statement.create_statement()
-        if self.common_var.get() == 2:
-            self.com_pl = self.company_data2[0].com_size_pl()
-            self.com_bs = self.company_data2[1].com_size_bs()
-            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
-                                            bs_frame=self.common_bs_frame)
-            statement.create_statement()
-        if self.common_var.get() == 3:
-            self.com_pl = self.company_data3[0].com_size_pl()
-            self.com_bs = self.company_data3[1].com_size_bs()
-            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
-                                            bs_frame=self.common_bs_frame)
-            statement.create_statement()
-        if self.common_var.get() == 4:
-            self.com_pl = self.company_data4[0].com_size_pl()
-            self.com_bs = self.company_data4[1].com_size_bs()
-            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
-                                            bs_frame=self.common_bs_frame)
-            statement.create_statement()
-        if self.common_var.get() == 5:
-            self.com_pl = self.company_data5[0].com_size_pl()
-            self.com_bs = self.company_data5[1].com_size_bs()
-            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
-                                            bs_frame=self.common_bs_frame)
-            statement.create_statement()
-        if self.common_var.get() == 6:
-            self.com_pl = self.company_data6[0].com_size_pl()
-            self.com_bs = self.company_data6[1].com_size_bs()
-            statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
-                                            bs_frame=self.common_bs_frame)
-            statement.create_statement()
+        if self.company_data1 is not None:
+            if self.com_year_entry.get() == self.company_data1[0].year:
+                self.com_pl = self.company_data1[0].com_size_pl()
+                self.com_bs = self.company_data1[1].com_size_bs()
+                statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                                bs_frame=self.common_bs_frame)
+                statement.create_statement()
+        if self.company_data2 is not None:
+            if self.com_year_entry.get() == self.company_data2[0].year:
+                self.com_pl = self.company_data2[0].com_size_pl()
+                self.com_bs = self.company_data2[1].com_size_bs()
+                statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                                bs_frame=self.common_bs_frame)
+                statement.create_statement()
+        if self.company_data3 is not None:
+            if self.com_year_entry.get() == self.company_data3[0].year:
+                self.com_pl = self.company_data3[0].com_size_pl()
+                self.com_bs = self.company_data3[1].com_size_bs()
+                statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                                bs_frame=self.common_bs_frame)
+                statement.create_statement()
+        if self.company_data4 is not None:
+            if self.com_year_entry.get() == self.company_data4[0].year:
+                self.com_pl = self.company_data4[0].com_size_pl()
+                self.com_bs = self.company_data4[1].com_size_bs()
+                statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                                bs_frame=self.common_bs_frame)
+                statement.create_statement()
+        if self.company_data5 is not None:
+            if self.com_year_entry.get() == self.company_data5[0].year:
+                self.com_pl = self.company_data5[0].com_size_pl()
+                self.com_bs = self.company_data5[1].com_size_bs()
+                statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                                bs_frame=self.common_bs_frame)
+                statement.create_statement()
+        if self.company_data6 is not None:
+            if self.com_year_entry.get() == self.company_data6[0].year:
+                self.com_pl = self.company_data6[0].com_size_pl()
+                self.com_bs = self.company_data6[1].com_size_bs()
+                statement = CommonSizeStatement(pl=self.com_pl, bs=self.com_bs, pl_frame=self.common_p_l_frame,
+                                                bs_frame=self.common_bs_frame)
+                statement.create_statement()
 
     def trend_rfo(self):
-        trend_value1 = self.company_data1[0].rfo
-        trend_value2 = self.company_data2[0].rfo
-        trend_value3 = self.company_data3[0].rfo
-        trend_value4 = self.company_data4[0].rfo
-        trend_value5 = self.company_data5[0].rfo
-        trend_value6 = self.company_data6[0].rfo
-        y = [trend_value1, trend_value2, trend_value3, trend_value4, trend_value5, trend_value6]
-        year1 = self.company_data1[0].year
-        year2 = self.company_data2[0].year
-        year3 = self.company_data3[0].year
-        year4 = self.company_data4[0].year
-        year5 = self.company_data5[0].year
-        year6 = self.company_data6[0].year
-        x = [year1, year2, year3, year4, year5, year6]
-        trend_statement = TrendDisplay(trend=y, year=x, table_frame=self.trend_table_frame,
-                                       graph_frame=self.trend_graph_frame, title='Revenue From Operations')
-        trend_statement.create_table()
-        trend_statement.create_graph()
+        statement = TrendAnalysis(data1=self.company_data1, data2=self.company_data2, data3=self.company_data3,
+                                  data4=self.company_data4, data5=self.company_data5, data6=self.company_data6,
+                                  table_frame=self.trend_table_frame, graph_frame=self.trend_graph_frame)
+        statement.trend_rfo()
 
     def trend_gp(self):
-        trend_value1 = self.company_data1[0].gp
-        trend_value2 = self.company_data2[0].gp
-        trend_value3 = self.company_data3[0].gp
-        trend_value4 = self.company_data4[0].gp
-        trend_value5 = self.company_data5[0].gp
-        trend_value6 = self.company_data6[0].gp
-        y = [trend_value1, trend_value2, trend_value3, trend_value4, trend_value5, trend_value6]
-        year1 = self.company_data1[0].year
-        year2 = self.company_data2[0].year
-        year3 = self.company_data3[0].year
-        year4 = self.company_data4[0].year
-        year5 = self.company_data5[0].year
-        year6 = self.company_data6[0].year
-        x = [year1, year2, year3, year4, year5, year6]
-        trend_statement = TrendDisplay(trend=y, year=x, table_frame=self.trend_table_frame,
-                                       graph_frame=self.trend_graph_frame, title='Gross Profit')
-        trend_statement.create_table()
-        trend_statement.create_graph()
+        statement = TrendAnalysis(data1=self.company_data1, data2=self.company_data2, data3=self.company_data3,
+                                  data4=self.company_data4, data5=self.company_data5, data6=self.company_data6,
+                                  table_frame=self.trend_table_frame, graph_frame=self.trend_graph_frame)
+        statement.trend_gp()
 
     def trend_op(self):
-        trend_value1 = self.company_data1[0].op
-        trend_value2 = self.company_data2[0].op
-        trend_value3 = self.company_data3[0].op
-        trend_value4 = self.company_data4[0].op
-        trend_value5 = self.company_data5[0].op
-        trend_value6 = self.company_data6[0].op
-        y = [trend_value1, trend_value2, trend_value3, trend_value4, trend_value5, trend_value6]
-        year1 = self.company_data1[0].year
-        year2 = self.company_data2[0].year
-        year3 = self.company_data3[0].year
-        year4 = self.company_data4[0].year
-        year5 = self.company_data5[0].year
-        year6 = self.company_data6[0].year
-        x = [year1, year2, year3, year4, year5, year6]
-        trend_statement = TrendDisplay(trend=y, year=x, table_frame=self.trend_table_frame,
-                                       graph_frame=self.trend_graph_frame, title='Operating Profit')
-        trend_statement.create_table()
-        trend_statement.create_graph()
+        statement = TrendAnalysis(data1=self.company_data1, data2=self.company_data2, data3=self.company_data3,
+                                  data4=self.company_data4, data5=self.company_data5, data6=self.company_data6,
+                                  table_frame=self.trend_table_frame, graph_frame=self.trend_graph_frame)
+        statement.trend_op()
 
     def trend_np(self):
-        trend_value1 = self.company_data1[0].pat
-        trend_value2 = self.company_data2[0].pat
-        trend_value3 = self.company_data3[0].pat
-        trend_value4 = self.company_data4[0].pat
-        trend_value5 = self.company_data5[0].pat
-        trend_value6 = self.company_data6[0].pat
-        y = [trend_value1, trend_value2, trend_value3, trend_value4, trend_value5, trend_value6]
-        year1 = self.company_data1[0].year
-        year2 = self.company_data2[0].year
-        year3 = self.company_data3[0].year
-        year4 = self.company_data4[0].year
-        year5 = self.company_data5[0].year
-        year6 = self.company_data6[0].year
-        x = [year1, year2, year3, year4, year5, year6]
-        trend_statement = TrendDisplay(trend=y, year=x, table_frame=self.trend_table_frame,
-                                       graph_frame=self.trend_graph_frame, title='Net Profit')
-        trend_statement.create_table()
-        trend_statement.create_graph()
+        statement = TrendAnalysis(data1=self.company_data1, data2=self.company_data2, data3=self.company_data3,
+                                  data4=self.company_data4, data5=self.company_data5, data6=self.company_data6,
+                                  table_frame=self.trend_table_frame, graph_frame=self.trend_graph_frame)
+        statement.trend_np()
 
     def trend_debt(self):
-        trend_value1 = self.company_data1[1].ltb
-        trend_value2 = self.company_data2[1].ltb
-        trend_value3 = self.company_data3[1].ltb
-        trend_value4 = self.company_data4[1].ltb
-        trend_value5 = self.company_data5[1].ltb
-        trend_value6 = self.company_data6[1].ltb
-        y = [trend_value1, trend_value2, trend_value3, trend_value4, trend_value5, trend_value6]
-        year1 = self.company_data1[0].year
-        year2 = self.company_data2[0].year
-        year3 = self.company_data3[0].year
-        year4 = self.company_data4[0].year
-        year5 = self.company_data5[0].year
-        year6 = self.company_data6[0].year
-        x = [year1, year2, year3, year4, year5, year6]
-        trend_statement = TrendDisplay(trend=y, year=x, table_frame=self.trend_table_frame,
-                                       graph_frame=self.trend_graph_frame, title='Debt')
-        trend_statement.create_table()
-        trend_statement.create_graph()
+        statement = TrendAnalysis(data1=self.company_data1, data2=self.company_data2, data3=self.company_data3,
+                                  data4=self.company_data4, data5=self.company_data5, data6=self.company_data6,
+                                  table_frame=self.trend_table_frame, graph_frame=self.trend_graph_frame)
+        statement.trend_debt()
 
     def trend_ox(self):
-        trend_value1 = self.company_data1[0].oe
-        trend_value2 = self.company_data2[0].oe
-        trend_value3 = self.company_data3[0].oe
-        trend_value4 = self.company_data4[0].oe
-        trend_value5 = self.company_data5[0].oe
-        trend_value6 = self.company_data6[0].oe
-        y = [trend_value1, trend_value2, trend_value3, trend_value4, trend_value5, trend_value6]
-        year1 = self.company_data1[0].year
-        year2 = self.company_data2[0].year
-        year3 = self.company_data3[0].year
-        year4 = self.company_data4[0].year
-        year5 = self.company_data5[0].year
-        year6 = self.company_data6[0].year
-        x = [year1, year2, year3, year4, year5, year6]
-        trend_statement = TrendDisplay(trend=y, year=x, table_frame=self.trend_table_frame,
-                                       graph_frame=self.trend_graph_frame, title='Operating Expenses')
-        trend_statement.create_table()
-        trend_statement.create_graph()
+        statement = TrendAnalysis(data1=self.company_data1, data2=self.company_data2, data3=self.company_data3,
+                                  data4=self.company_data4, data5=self.company_data5, data6=self.company_data6,
+                                  table_frame=self.trend_table_frame, graph_frame=self.trend_graph_frame)
+        statement.trend_ox()
 
     def ratio(self):
-        ratios1 = Ratios(self.company_data1[0], self.company_data1[1])
-        ratios2 = Ratios(self.company_data2[0], self.company_data2[1])
-        ratios3 = Ratios(self.company_data3[0], self.company_data3[1])
-        ratios4 = Ratios(self.company_data4[0], self.company_data4[1])
-        ratios5 = Ratios(self.company_data5[0], self.company_data5[1])
-        ratios6 = Ratios(self.company_data6[0], self.company_data6[1])
-
-        if self.liquidity_ratio.get() == 'Current Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.current_ratio(), ratios2.current_ratio(), ratios3.current_ratio(),
-                          ratios4.current_ratio(), ratios5.current_ratio(), ratios6.current_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-        if self.liquidity_ratio.get() == 'Quick Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.quick_ratio(), ratios2.quick_ratio(), ratios3.quick_ratio(),
-                          ratios4.quick_ratio(), ratios5.quick_ratio(), ratios6.quick_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.liquidity_ratio.get() == 'Cash Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.absolute_ratio(), ratios2.absolute_ratio(), ratios3.absolute_ratio(),
-                          ratios4.absolute_ratio(), ratios5.absolute_ratio(), ratios6.absolute_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.solvency_ratio.get() == 'Debt to Equity Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.debt_equity_ratio(), ratios2.debt_equity_ratio(), ratios3.debt_equity_ratio(),
-                          ratios4.debt_equity_ratio(), ratios5.debt_equity_ratio(), ratios6.debt_equity_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.solvency_ratio.get() == 'Debt to Capital Employed Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.debt_capital_ratio(), ratios2.debt_capital_ratio(), ratios3.debt_capital_ratio(),
-                          ratios4.debt_capital_ratio(), ratios5.debt_capital_ratio(), ratios6.debt_capital_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.solvency_ratio.get() == 'Proprietary Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.proprietary_ratio(), ratios2.proprietary_ratio(), ratios3.proprietary_ratio(),
-                          ratios4.proprietary_ratio(), ratios5.proprietary_ratio(), ratios6.proprietary_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.solvency_ratio.get() == 'Interest Coverage Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.icr(), ratios2.icr(), ratios3.icr(), ratios4.icr(), ratios5.icr(), ratios6.icr()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.profitability_ratio.get() == 'Gross Profit Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.gp_ratio(), ratios2.gp_ratio(), ratios3.gp_ratio(), ratios4.gp_ratio(),
-                          ratios5.gp_ratio(), ratios6.gp_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.profitability_ratio.get() == 'Proprietary Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.proprietary_ratio(), ratios2.proprietary_ratio(), ratios3.proprietary_ratio(),
-                          ratios4.proprietary_ratio(), ratios5.proprietary_ratio(), ratios6.proprietary_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.profitability_ratio.get() == 'Operating Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.operating_ratio(), ratios2.operating_ratio(), ratios3.operating_ratio(),
-                          ratios4.operating_ratio(), ratios5.operating_ratio(), ratios6.operating_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.profitability_ratio.get() == 'Operating Profit Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.operating_profit_ratio(), ratios2.operating_profit_ratio(),
-                          ratios3.operating_profit_ratio(), ratios4.operating_profit_ratio(),
-                          ratios5.operating_profit_ratio(), ratios6.operating_profit_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.profitability_ratio.get() == 'Net Profit Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.net_profit_ratio(), ratios2.net_profit_ratio(), ratios3.net_profit_ratio(),
-                          ratios4.net_profit_ratio(), ratios5.net_profit_ratio(), ratios6.net_profit_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.profitability_ratio.get() == 'Return on Investment Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.roi_ratio(), ratios2.roi_ratio(), ratios3.roi_ratio(),  ratios4.roi_ratio(),
-                          ratios5.roi_ratio(), ratios6.roi_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.profitability_ratio.get() == 'Return on Networth Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.ronw_ratio(), ratios2.ronw_ratio(), ratios3.ronw_ratio(), ratios4.ronw_ratio(),
-                          ratios5.ronw_ratio(), ratios6.ronw_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-        if self.profitability_ratio.get() == 'Earnings Per Share':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.eps_ratio(), ratios2.eps_ratio(), ratios3.eps_ratio(), ratios4.eps_ratio(),
-                          ratios5.eps_ratio(), ratios6.eps_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.profitability_ratio.get() == 'Book Value Per Share':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.bps_ratio(), ratios2.bps_ratio(), ratios3.bps_ratio(), ratios4.bps_ratio(),
-                          ratios5.bps_ratio(), ratios6.bps_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.profitability_ratio.get() == 'Dividend Payout Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.dp_ratio(), ratios2.dp_ratio(), ratios3.dp_ratio(), ratios4.dp_ratio(),
-                          ratios5.ronw_ratio(), ratios6.ronw_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.profitability_ratio.get() == 'Price Earning Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.pe_ratio(), ratios2.pe_ratio(), ratios3.pe_ratio(), ratios4.pe_ratio(),
-                          ratios5.pe_ratio(), ratios6.pe_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.turnover_ratio.get() == 'Inventory Turnover Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.inventory_turnover_ratio(), ratios2.inventory_turnover_ratio(),
-                          ratios3.inventory_turnover_ratio(), ratios4.inventory_turnover_ratio(),
-                          ratios5.inventory_turnover_ratio(), ratios6.inventory_turnover_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.turnover_ratio.get() == 'Debtors Turnover Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.tr_turnover_ratio(), ratios2.tr_turnover_ratio(), ratios3.tr_turnover_ratio(),
-                          ratios4.tr_turnover_ratio(), ratios5.tr_turnover_ratio(), ratios6.tr_turnover_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.turnover_ratio.get() == 'Creditors Turnover Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.tp_turnover_ratio(), ratios2.tp_turnover_ratio(), ratios3.tp_turnover_ratio(),
-                          ratios4.tp_turnover_ratio(), ratios5.tp_turnover_ratio(), ratios6.tp_turnover_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.turnover_ratio.get() == 'Capital Turnover Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.capital_turnover_ratio(), ratios2.capital_turnover_ratio(),
-                          ratios3.capital_turnover_ratio(), ratios4.capital_turnover_ratio(),
-                          ratios5.capital_turnover_ratio(), ratios6.capital_turnover_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.turnover_ratio.get() == 'Fixed Asset Turnover Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.fixed_asset_turnover_ratio(), ratios2.fixed_asset_turnover_ratio(),
-                          ratios3.fixed_asset_turnover_ratio(), ratios4.fixed_asset_turnover_ratio(),
-                          ratios5.fixed_asset_turnover_ratio(), ratios6.fixed_asset_turnover_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
-
-        if self.turnover_ratio.get() == 'Working Capital Turnover Ratio':
-            year_list = [self.company_data1[0].year, self.company_data2[0].year, self.company_data3[0].year,
-                         self.company_data4[0].year, self.company_data5[0].year, self.company_data6[0].year]
-            ratio_list = [ratios1.working_capital_turnover_ratio(), ratios2.working_capital_turnover_ratio(),
-                          ratios3.working_capital_turnover_ratio(), ratios4.working_capital_turnover_ratio(),
-                          ratios5.working_capital_turnover_ratio(), ratios6.working_capital_turnover_ratio()]
-            statement = RatioDisplay(year=year_list, ratio=ratio_list, table_frame=self.ratio_table_frame,
-                                     graph_frame=self.ratio_graph_frame)
-            statement.create_table()
-            statement.create_graph()
+        statement = RatioAnalysis(data1=self.company_data1, data2=self.company_data2, data3=self.company_data3,
+                                  data4=self.company_data4, data5=self.company_data5, data6=self.company_data6,
+                                  table_frame=self.ratio_table_frame, graph_frame=self.ratio_graph_frame,
+                                  liquidity_ratio=self.liquidity_ratio, solvency_ratio=self.solvency_ratio,
+                                  profitability_ratio=self.profitability_ratio, turnover_ratio=self.turnover_ratio)
+        statement.create_ratio()
 
 
 master = Tk()
 obj = FinancialAnalysis(master)
 master.mainloop()
 
+
+
+
+import tkinter.ttk
+from tkinter import *
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
+from financial_statements import *
+
+
+class RatioDisplay:
+    def __init__(self, year, ratio, table_frame, graph_frame):
+        self.year_list = year
+        self.ratio_list = ratio
+        self.ratio_table_frame = table_frame
+        self.ratio_graph_frame = graph_frame
+        self.count = len(self.ratio_list)
+
+    def create_table(self):
+        ratio_treeview = tkinter.ttk.Treeview(self.ratio_table_frame, columns=('1', '2'))
+        ratio_treeview.configure(height=45)
+        ratio_treeview.column('#0', width=0)
+        ratio_treeview.column('1', anchor=W, width=588)
+        ratio_treeview.column('2', anchor=W, width=588)
+        ratio_treeview.heading('1', text='Year')
+        ratio_treeview.heading('2', text='Ratio')
+        for i in range(self.count):
+            ratio_treeview.insert(parent='', index=END, values=(self.year_list[i], self.ratio_list[i]))
+        ratio_treeview.place(x=0, y=0)
+
+    def create_graph(self):
+        fig = plt.Figure(figsize=(24, 7), dpi=50)
+        ax = fig.add_subplot(111)
+        ax.set_title('Ratio')
+        ax.bar(self.year_list, self.ratio_list, 0.25)
+        chart = FigureCanvasTkAgg(fig, self.ratio_graph_frame)
+        chart.get_tk_widget().place(x=0, y=0)
+        toolbar = NavigationToolbar2Tk(chart, self.ratio_graph_frame)
+        toolbar.place(x=0, y=0)
+
+
+class RatioAnalysis:
+    def __init__(self, data1, data2, data3, data4, data5, data6, table_frame, graph_frame, liquidity_ratio,
+                 solvency_ratio, profitability_ratio, turnover_ratio):
+        self.company_data1 = data1
+        self.company_data2 = data2
+        self.company_data3 = data3
+        self.company_data4 = data4
+        self.company_data5 = data5
+        self.company_data6 = data6
+        self.ratios1 = None
+        self.ratios2 = None
+        self.ratios3 = None
+        self.ratios4 = None
+        self.ratios5 = None
+        self.ratios6 = None
+        self.ratios_list = []
+        self.ratio_list = []
+        self.year1 = None
+        self.year2 = None
+        self.year3 = None
+        self.year4 = None
+        self.year5 = None
+        self.year6 = None
+        self.year_list = []
+        self.liquidity_ratio = liquidity_ratio
+        self.solvency_ratio = solvency_ratio
+        self.profitability_ratio = profitability_ratio
+        self.turnover_ratio = turnover_ratio
+        self.ratio_table_frame = table_frame
+        self.ratio_graph_frame = graph_frame
+
+    def create_ratio(self):
+        if self.company_data1 is not None:
+            self.ratios1 = Ratios(self.company_data1[0], self.company_data1[1])
+        if self.company_data2 is not None:
+            self.ratios2 = Ratios(self.company_data2[0], self.company_data2[1])
+        if self.company_data3 is not None:
+            self.ratios3 = Ratios(self.company_data3[0], self.company_data3[1])
+        if self.company_data4 is not None:
+            self.ratios4 = Ratios(self.company_data4[0], self.company_data4[1])
+        if self.company_data5 is not None:
+            self.ratios5 = Ratios(self.company_data5[0], self.company_data5[1])
+        if self.company_data6 is not None:
+            self.ratios6 = Ratios(self.company_data6[0], self.company_data6[1])
+
+        self.ratios_list = [self.ratios1, self.ratios2, self.ratios3, self.ratios4, self.ratios5, self.ratios6]
+
+        if self.liquidity_ratio.get() == 'Current Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.current_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+        if self.liquidity_ratio.get() == 'Quick Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.quick_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.liquidity_ratio.get() == 'Cash Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.absolute_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.solvency_ratio.get() == 'Debt to Equity Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.debt_equity_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.solvency_ratio.get() == 'Debt to Capital Employed Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.debt_capital_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.solvency_ratio.get() == 'Proprietary Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.proprietary_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.solvency_ratio.get() == 'Interest Coverage Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.icr())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.profitability_ratio.get() == 'Gross Profit Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.gp_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.profitability_ratio.get() == 'Operating Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.operating_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.profitability_ratio.get() == 'Operating Profit Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.operating_profit_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.profitability_ratio.get() == 'Net Profit Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.net_profit_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.profitability_ratio.get() == 'Return on Investment Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.roi_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.profitability_ratio.get() == 'Return on Networth Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.ronw_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.profitability_ratio.get() == 'Earnings Per Share':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.eps_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.profitability_ratio.get() == 'Book Value Per Share':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.bps_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.profitability_ratio.get() == 'Dividend Payout Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.dp_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.profitability_ratio.get() == 'Price Earning Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.pe_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.turnover_ratio.get() == 'Inventory Turnover Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.inventory_turnover_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.turnover_ratio.get() == 'Debtors Turnover Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.tr_turnover_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.turnover_ratio.get() == 'Creditors Turnover Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.tp_turnover_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.turnover_ratio.get() == 'Capital Turnover Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.capital_turnover_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.turnover_ratio.get() == 'Fixed Asset Turnover Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.fixed_asset_turnover_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
+
+        if self.turnover_ratio.get() == 'Working Capital Turnover Ratio':
+            if self.company_data1 is not None:
+                self.year1 = self.company_data1[0].year
+            if self.company_data2 is not None:
+                self.year2 = self.company_data2[0].year
+            if self.company_data3 is not None:
+                self.year3 = self.company_data3[0].year
+            if self.company_data4 is not None:
+                self.year4 = self.company_data4[0].year
+            if self.company_data5 is not None:
+                self.year5 = self.company_data5[0].year
+            if self.company_data6 is not None:
+                self.year6 = self.company_data6[0].year
+            years_list = [self.year1, self.year2, self.year3, self.year4, self.year5, self.year6]
+            for year in years_list:
+                if year is not None:
+                    self.year_list.append(year)
+            for ratio in self.ratios_list:
+                if ratio is not None:
+                    self.ratio_list.append(ratio.working_capital_turnover_ratio())
+
+            statement = RatioDisplay(year=self.year_list, ratio=self.ratio_list, table_frame=self.ratio_table_frame,
+                                     graph_frame=self.ratio_graph_frame)
+            statement.create_table()
+            statement.create_graph()
 

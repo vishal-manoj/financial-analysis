@@ -37,8 +37,7 @@ class RatioDisplay:
 
 
 class RatioAnalysis:
-    def __init__(self, data1, data2, data3, data4, data5, data6, table_frame, graph_frame, liquidity_ratio,
-                 solvency_ratio, profitability_ratio, turnover_ratio):
+    def __init__(self, data1, data2, data3, data4, data5, data6, table_frame, graph_frame, selected_ratio):
         self.company_data1 = data1
         self.company_data2 = data2
         self.company_data3 = data3
@@ -60,10 +59,7 @@ class RatioAnalysis:
         self.year5 = None
         self.year6 = None
         self.year_list = []
-        self.liquidity_ratio = liquidity_ratio
-        self.solvency_ratio = solvency_ratio
-        self.profitability_ratio = profitability_ratio
-        self.turnover_ratio = turnover_ratio
+        self.selected_ratio = selected_ratio
         self.ratio_table_frame = table_frame
         self.ratio_graph_frame = graph_frame
 
@@ -83,7 +79,7 @@ class RatioAnalysis:
 
         self.ratios_list = [self.ratios1, self.ratios2, self.ratios3, self.ratios4, self.ratios5, self.ratios6]
 
-        if self.liquidity_ratio.get() == 'Current Ratio':
+        if self.selected_ratio[0] == 0:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -108,7 +104,7 @@ class RatioAnalysis:
                                      graph_frame=self.ratio_graph_frame)
             statement.create_table()
             statement.create_graph()
-        if self.liquidity_ratio.get() == 'Quick Ratio':
+        if self.selected_ratio[0] == 1:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -134,7 +130,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.liquidity_ratio.get() == 'Cash Ratio':
+        if self.selected_ratio[0] == 2:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -160,7 +156,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.solvency_ratio.get() == 'Debt to Equity Ratio':
+        if self.selected_ratio[0] == 3:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -186,7 +182,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.solvency_ratio.get() == 'Debt to Capital Employed Ratio':
+        if self.selected_ratio[0] == 4:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -212,7 +208,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.solvency_ratio.get() == 'Proprietary Ratio':
+        if self.selected_ratio[0] == 5:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -238,7 +234,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.solvency_ratio.get() == 'Interest Coverage Ratio':
+        if self.selected_ratio[0] == 6:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -264,7 +260,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.profitability_ratio.get() == 'Gross Profit Ratio':
+        if self.selected_ratio[0] == 7:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -290,7 +286,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.profitability_ratio.get() == 'Operating Ratio':
+        if self.selected_ratio[0] == 8:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -316,7 +312,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.profitability_ratio.get() == 'Operating Profit Ratio':
+        if self.selected_ratio[0] == 9:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -342,7 +338,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.profitability_ratio.get() == 'Net Profit Ratio':
+        if self.selected_ratio[0] == 10:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -368,7 +364,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.profitability_ratio.get() == 'Return on Investment Ratio':
+        if self.selected_ratio[0] == 11:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -394,7 +390,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.profitability_ratio.get() == 'Return on Networth Ratio':
+        if self.selected_ratio[0] == 12:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -420,7 +416,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.profitability_ratio.get() == 'Earnings Per Share':
+        if self.selected_ratio[0] == 13:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -446,7 +442,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.profitability_ratio.get() == 'Book Value Per Share':
+        if self.selected_ratio[0] == 14:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -472,7 +468,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.profitability_ratio.get() == 'Dividend Payout Ratio':
+        if self.selected_ratio[0] == 15:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -498,7 +494,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.profitability_ratio.get() == 'Price Earning Ratio':
+        if self.selected_ratio[0] == 16:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -524,7 +520,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.turnover_ratio.get() == 'Inventory Turnover Ratio':
+        if self.selected_ratio[0] == 17:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -550,7 +546,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.turnover_ratio.get() == 'Debtors Turnover Ratio':
+        if self.selected_ratio[0] == 18:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -576,7 +572,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.turnover_ratio.get() == 'Creditors Turnover Ratio':
+        if self.selected_ratio[0] == 19:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -602,7 +598,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.turnover_ratio.get() == 'Capital Turnover Ratio':
+        if self.selected_ratio[0] == 20:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -628,7 +624,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.turnover_ratio.get() == 'Fixed Asset Turnover Ratio':
+        if self.selected_ratio[0] == 21:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
@@ -654,7 +650,7 @@ class RatioAnalysis:
             statement.create_table()
             statement.create_graph()
 
-        if self.turnover_ratio.get() == 'Working Capital Turnover Ratio':
+        if self.selected_ratio[0] == 22:
             if self.company_data1 is not None:
                 self.year1 = self.company_data1[0].year
             if self.company_data2 is not None:
