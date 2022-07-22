@@ -1,4 +1,5 @@
 import tkinter.ttk
+from tkinter import messagebox
 from comparative_statement import *
 from common_size_statement import *
 from trend_analysis import *
@@ -54,16 +55,19 @@ class FinancialAnalysis:
         style.map('TNotebook', background=[('selected', 'orange')])
         tabs = tkinter.ttk.Notebook()
         tabs.place(x=0, y=75)
+
         data_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1530)
         comparative_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1530)
         common_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1530)
         ratio_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1530)
         trend_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1530)
+
         tabs.add(data_frame, text='Data')
         tabs.add(comparative_frame, text='Comparative Statement')
         tabs.add(common_frame, text='Common size Statement')
         tabs.add(ratio_frame, text='Ratios')
         tabs.add(trend_frame, text='Trend Analysis')
+
         company_frame = Frame(data_frame, highlightbackground='orange', highlightthickness=2, height=50, width=1525)
         company_frame.place(x=0, y=0)
         company_label = Label(company_frame, text='Enter Company name :')
@@ -329,15 +333,18 @@ class FinancialAnalysis:
 
     def count_year(self):
         self.no_of_years = int(self.year_count_spin_box.get())
-        entry_list = [self.company_entry, self.year_entry, self.rfo_entry, self.oi_entry, self.com_entry,
-                      self.purchase_entry, self.cii_entry, self.ebe_entry, self.fc_entry, self.dna_entry,
-                      self.ode_entry, self.oie_entry, self.tax_entry, self.share_fund_entry, self.ps_entry,
-                      self.ltb_entry, self.oll_entry, self.tp_entry, self.ocl_entry, self.fa_entry,
-                      self.lti_entry, self.ltl_entry, self.ola_entry, self.inv_entry, self.tr_entry,
-                      self.cac_entry, self.oca_entry, self.nes_entry, self.dps_entry, self.mps_entry,
-                      self.upload_button, self.clear_button]
-        for entry in entry_list:
-            entry['state'] = NORMAL
+        if self.no_of_years >= 7:
+            messagebox.showinfo(title='Warning', message='You can enter data only up to 6 years')
+        else:
+            entry_list = [self.company_entry, self.year_entry, self.rfo_entry, self.oi_entry, self.com_entry,
+                          self.purchase_entry, self.cii_entry, self.ebe_entry, self.fc_entry, self.dna_entry,
+                          self.ode_entry, self.oie_entry, self.tax_entry, self.share_fund_entry, self.ps_entry,
+                          self.ltb_entry, self.oll_entry, self.tp_entry, self.ocl_entry, self.fa_entry,
+                          self.lti_entry, self.ltl_entry, self.ola_entry, self.inv_entry, self.tr_entry,
+                          self.cac_entry, self.oca_entry, self.nes_entry, self.dps_entry, self.mps_entry,
+                          self.upload_button, self.clear_button]
+            for entry in entry_list:
+                entry['state'] = NORMAL
 
     def upload_data(self):
         self.delete_list = [self.company_entry, self.year_entry, self.rfo_entry, self.oi_entry, self.com_entry,
@@ -485,6 +492,24 @@ class FinancialAnalysis:
                            self.p_l5, self.b_s5, self.company_data5, self.p_l6, self.b_s6, self.company_data6]
         for self.item in self.clear_list:
             del self.item
+        frame_list = [self.comp_p_l_frame, self.comp_bs_frame, self.common_p_l_frame, self.common_bs_frame,
+                      self.ratio_table_frame, self.ratio_graph_frame, self.trend_table_frame, self.trend_graph_frame]
+        for frame in frame_list:
+            widgets = frame.winfo_children()
+            for widget in widgets:
+                widget.destroy()
+        entry_list = [self.company_entry, self.year_entry, self.rfo_entry, self.oi_entry, self.com_entry,
+                      self.purchase_entry, self.cii_entry, self.ebe_entry, self.fc_entry, self.dna_entry,
+                      self.ode_entry, self.oie_entry, self.tax_entry, self.share_fund_entry, self.ps_entry,
+                      self.ltb_entry, self.oll_entry, self.tp_entry, self.ocl_entry, self.fa_entry,
+                      self.lti_entry, self.ltl_entry, self.ola_entry, self.inv_entry, self.tr_entry,
+                      self.cac_entry, self.oca_entry, self.nes_entry, self.dps_entry, self.mps_entry,
+                      self.upload_button, self.clear_button]
+        for entry in entry_list:
+            entry['state'] = DISABLED
+        self.base_year_entry.delete(0, END)
+        self.current_year_entry.delete(0, END)
+        self.com_year_entry.delete(0, END)
 
     def comp_statement(self):
         self.base_year = self.base_year_entry.get()
