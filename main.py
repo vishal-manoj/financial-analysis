@@ -44,7 +44,7 @@ class FinancialAnalysis:
         self.root.state('zoomed')
         self.root.title('Financial Analysis Software')
         name_label = Label(self.root, text='Financial Analysis', bg='orange', relief=GROOVE, font=10, height=3,
-                           width=140)
+                           width=180)
         name_label.place(x=0, y=0)
 
         # Main window and Tabs
@@ -54,7 +54,7 @@ class FinancialAnalysis:
         style.configure('TNotebook.Tab', background='orange')
         style.map('TNotebook', background=[('selected', 'orange')])
         tabs = tkinter.ttk.Notebook()
-        tabs.place(x=0, y=75)
+        tabs.place(x=0, y=60)
 
         data_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1530)
         comparative_frame = Frame(tabs, highlightbackground='orange', highlightthickness=3, height=680, width=1530)
