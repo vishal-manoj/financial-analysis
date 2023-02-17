@@ -44,7 +44,7 @@ class FinancialAnalysis:
         self.root.state('zoomed')
         self.root.title('Financial Analysis Software')
         name_label = Label(self.root, text='Financial Analysis', bg='orange', relief=GROOVE, font=10, height=3,
-                           width=180)
+                           width=160)
         name_label.place(x=0, y=0)
 
         # Main window and Tabs
